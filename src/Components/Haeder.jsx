@@ -1,12 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useAuth } from '../Context/AuthContext';
+import supabase from '../Lib/supabase';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {  IsLoggedIn,  profile, logout}= useAuth();
-  console.log("isLoggedIn",IsLoggedIn)
+  const {  IsLoggedIn,  profile, logout, user}= useAuth();
+  console.log("isLoggedIn",IsLoggedIn);
+  console.log("usersssedas",user);
+  console.log("profilessssssssssssssssssssssss",profile?.session?.user?.id);
+
+  const id= profile?.session?.user?.id;
+
+  useEffect(() => {
+
+  // const FetchUserRole=async()=>{
+  //   try {
+
+  //     //
+
+  //     let { data, error } = await supabase
+  //               .from('users')
+  //               .select('id')
+
+  //               .eq('id',id)
+  //               .single()
+
+  //               console.log("dat user role",data)
+
+  //               if (error) throw error
+      
+  //   } catch (error) {
+
+  //     console.error("Error fetching user data: ", error)
+      
+  //   }
+  //  }
+
+  //   FetchUserRole()
+
+  },[])
 
 
 
@@ -38,14 +72,14 @@ const Header = () => {
 
       <Link
         to="/Dashboard"
-        className="px-4 py-2 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-100 hover:text-blue-700 transition duration-200"
+        className="px-4 py-2 cursor-pointer rounded-full border border-blue-600 text-blue-600 hover:bg-blue-100 hover:text-blue-700 transition duration-200"
       >
         Dashboard
       </Link>
 
       <button
         onClick={logout}
-        className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition duration-200"
+        className="px-4 py-2 cursor-pointer rounded-full bg-red-500 text-white hover:bg-red-600 transition duration-200"
       >
         Logout
       </button>
@@ -88,15 +122,17 @@ const Header = () => {
             IsLoggedIn ? (
               <div className="flex flex-col space-y-2">
                 <Link to="/Dashboard" onClick={toggleMenu} className="block text-gray-700 hover:text-blue-600">Dashboard</Link>
-                <button onClick={logout} className="block text-red-500 hover:text-red-600">Logout</button>
+                <button onClick={logout} className="block text-red-500 cursor-pointer hover:text-red-600">Logout</button>
               </div>
             ) : (
               <>
               <Link to="/Signin" onClick={toggleMenu} className="block text-blue-600 font-medium">Login</Link>
 
-<Link to="/Signup" onClick={toggleMenu} className="block text-white bg-blue-600 px-3 py-1 rounded text-center mt-1 hover:bg-blue-700">
+<Link to="/Signup" onClick={toggleMenu} className=" cursor-pointer block text-white bg-blue-600 px-3 py-1 rounded text-center mt-1 hover:bg-blue-700">
   Signup
 </Link>
+
+
               </>
             )
           }
