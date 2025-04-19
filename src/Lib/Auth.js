@@ -66,4 +66,93 @@ export const signIn= async(email,password)=>{
   
   
   }
+
+
+
+  
+export const  getUserProfile=async(userId)=>{
+
+    const { data: sessionData } = await supabase.auth.getSession()
+    console.log('Current session:', sessionData)
+    
+    // First, try to get the existing profile
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', userId)
+      .single()
+  
+      if (error && error.code === 'PGRST116') {
+        console.log('No profile found, attempting to create one for user:', userId)
+        
+        // Get user email to derive username if needed
+        const { data: userData } = await supabase.auth.getUser()
+        console.log('gggCurrent user dataaaaaaaa:', userData)
+        
+        const email = userData?.user?.email || ''
+        const defaultUsername = email ? email.split('@')[0] : `user_${Date.now()}`
+        
+        console.log('Creating profile with:', {
+          id: userId,
+          username: defaultUsername
+        })
+  
+  
+  
+   // Create a new profile
+   const { data: newProfile, error: insertError } = await supabase
+   .from('users')
+   .insert({
+     id: userId,
+     username: defaultUsername,
+     avatar_url: null
+   })
+   .select()
+   .single()
+  
+  if (insertError) {
+   console.error('Profile creation error:', insertError)
+   throw insertError
+  }
+  
+  console.log('New profile created successfully:', newProfile)
+  return newProfile
+  
+  
+  
+  
+    }
+  
+  
+    if(error){
+  
+      console.error("Error Fetching profile",error);
+  
+      throw error
+    }
+  
+  
+    console.log("existing data");
+  
+    return data;
+  
+  
+  
+  }
+  
+  export function onAuthChange(callback) {
+  
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+              callback(session?.user || null, event)
+         })
+  
+  return () => data.subscription.unsubscribe();
+  
+  
+   }
+  
+  
+   export async function signOut() {
+    await supabase.auth.signOut()
+  }
   

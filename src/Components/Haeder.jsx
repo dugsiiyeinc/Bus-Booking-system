@@ -1,9 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { useAuth } from '../Context/AuthContext';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {  IsLoggedIn,  profile, logout}= useAuth();
+  console.log("isLoggedIn",IsLoggedIn)
+
+
+
+
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -24,14 +31,44 @@ const Header = () => {
         </nav>
 
         {/* Auth Buttons (Desktop) */}
-        <div className="hidden md:flex space-x-4">
-          <Link to="/Signin" className="px-4 py-1 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition">
-            Login
-          </Link>
-          <Link to="/Signup" className="px-4 py-1 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">
-            Signup
-          </Link>
-        </div>
+        <div className="hidden md:flex items-center space-x-3">
+  {IsLoggedIn ? (
+    <div className="flex items-center space-x-3">
+      <span className="text-gray-700 font-medium">Welcome, {profile?.name}</span>
+
+      <Link
+        to="/Dashboard"
+        className="px-4 py-2 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-100 hover:text-blue-700 transition duration-200"
+      >
+        Dashboard
+      </Link>
+
+      <button
+        onClick={logout}
+        className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition duration-200"
+      >
+        Logout
+      </button>
+    </div>
+  ) : (
+    <div className="flex items-center space-x-3">
+      <Link
+        to="/Signin"
+        className="px-4 py-2 rounded-full border border-blue-600 text-blue-600 hover:bg-blue-100 hover:text-blue-700 transition duration-200"
+      >
+        Login
+      </Link>
+
+      <Link
+        to="/Signup"
+        className="px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition duration-200"
+      >
+        Signup
+      </Link>
+    </div>
+  )}
+</div>
+
 
         {/* Mobile Menu Button */}
         <button onClick={toggleMenu} className="md:hidden text-gray-700 p-2">

@@ -7,6 +7,9 @@ import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
 import Booking from "./Pages/Booking";
 import NotFound from "./Components/NotFound";
+import ProtectedRoute from "./Components/ProtectedRoute";
+//import { useAuth } from "./Context/AuthContext";
+import UnAuthenticated from "./Components/UnAuthenticated"
 
 const router = createBrowserRouter([
     {
@@ -25,18 +28,33 @@ const router = createBrowserRouter([
                 path: "/About",
                 element: <About/>
             },
+
             {
                 path: "/Signin",
-                element: <Signin/>
+              
+                element: 
+                <UnAuthenticated>
+                
+                <Signin/>
+                </UnAuthenticated>
+               
 
             },
             {
                 path: "/Signup",
-                element: <Signup/>
+                element:
+                <UnAuthenticated>
+                
+                <Signup/>
+                </UnAuthenticated>
             },
             {
                 path: "Dashboard",
-                element: <Dashboard/>,
+                element:
+                <ProtectedRoute>
+                
+                <Dashboard/>,
+                </ProtectedRoute>,
                 children:[
                   {
                     index: true,
