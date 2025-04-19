@@ -84,10 +84,23 @@ const Header = () => {
           <Link to="/bookings" onClick={toggleMenu} className="block text-gray-700 hover:text-blue-600">Bookings</Link>
           <Link to="/About" onClick={toggleMenu} className="block text-gray-700 hover:text-blue-600">About</Link>
           <hr />
-          <Link to="/Signin" onClick={toggleMenu} className="block text-blue-600 font-medium">Login</Link>
-          <Link to="/Signup" onClick={toggleMenu} className="block text-white bg-blue-600 px-3 py-1 rounded text-center mt-1 hover:bg-blue-700">
-            Signup
-          </Link>
+          {
+            IsLoggedIn ? (
+              <div className="flex flex-col space-y-2">
+                <Link to="/Dashboard" onClick={toggleMenu} className="block text-gray-700 hover:text-blue-600">Dashboard</Link>
+                <button onClick={logout} className="block text-red-500 hover:text-red-600">Logout</button>
+              </div>
+            ) : (
+              <>
+              <Link to="/Signin" onClick={toggleMenu} className="block text-blue-600 font-medium">Login</Link>
+
+<Link to="/Signup" onClick={toggleMenu} className="block text-white bg-blue-600 px-3 py-1 rounded text-center mt-1 hover:bg-blue-700">
+  Signup
+</Link>
+              </>
+            )
+          }
+          
         </div>
       )}
     </header>
