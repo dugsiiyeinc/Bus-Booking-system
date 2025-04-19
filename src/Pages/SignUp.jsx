@@ -155,7 +155,8 @@ const SignUp = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 disabled:cursor-not-allowed disabled:bg-blue-400 rounded-lg transition duration-200 font-semibold"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 disabled:cursor-not-allowed disabled:bg-blue-400 rounded-lg transition duration-200 font-semibold cursor:pointer"
+
 
             disabled={isLoading}
           >
@@ -165,7 +166,7 @@ const SignUp = () => {
 
         <p className="text-sm text-center text-gray-600 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+          <Link to="/Signin" className="text-blue-600 hover:underline font-medium">
             Login
           </Link>
         </p>
