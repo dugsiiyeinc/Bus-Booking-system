@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useAuth } from '../Context/AuthContext';
 import supabase from '../Lib/supabase';
+
+
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,43 +12,58 @@ const Header = () => {
   console.log("isLoggedIn",IsLoggedIn);
   console.log("usersssedas",user);
   console.log("profilessssssssssssssssssssssss",profile?.session?.user?.id);
+  const navigate= useNavigate()
 
   const id= profile?.session?.user?.id;
 
+
+  const [userRole, setUserRole] = useState(null); // Role state
+  
+ 
+
+
   useEffect(() => {
+    const FetchUserRole = async () => {
+      if (!id) return;
 
-  // const FetchUserRole=async()=>{
-  //   try {
+      try {
+        const { data, error } = await supabase
+          .from('users')
+          .select('role')
+          .eq('id', id)
+          .single();
 
-  //     //
+        if (error) throw error;
+        setUserRole(data?.role);
+      } catch (error) {
+        console.error("Error fetching user role:", error);
+      }
+    };
 
-  //     let { data, error } = await supabase
-  //               .from('users')
-  //               .select('id')
-
-  //               .eq('id',id)
-  //               .single()
-
-  //               console.log("dat user role",data)
-
-  //               if (error) throw error
-      
-  //   } catch (error) {
-
-  //     console.error("Error fetching user data: ", error)
-      
-  //   }
-  //  }
-
-  //   FetchUserRole()
-
-  },[])
-
-
-
-
+    FetchUserRole();
+  }, [id]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+
+  const handleDashboardClick = () => {
+    if (userRole !== 'admin') {
+      navigate('/Signin'); // Redirect to sign-in
+      return;
+    }
+    else{
+      navigate('/Dashboard'); // Redirect to the dashboard page
+    }
+    toggleMenu(); 
+  };
+
+ 
+
+
+
+
+
+  // const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -70,12 +87,13 @@ const Header = () => {
     <div className="flex items-center space-x-3">
       <span className="text-gray-700 font-medium">Welcome, {profile?.name}</span>
 
-      <Link
-        to="/Dashboard"
+      <button
+        onClick={handleDashboardClick}
+      
         className="px-4 py-2 cursor-pointer rounded-full border border-blue-600 text-blue-600 hover:bg-blue-100 hover:text-blue-700 transition duration-200"
       >
         Dashboard
-      </Link>
+      </button>
 
       <button
         onClick={logout}
@@ -121,7 +139,7 @@ const Header = () => {
           {
             IsLoggedIn ? (
               <div className="flex flex-col space-y-2">
-                <Link to="/Dashboard" onClick={toggleMenu} className="block text-gray-700 hover:text-blue-600">Dashboard</Link>
+                <button onClick={handleDashboardClick} className="block text-gray-700 hover:text-blue-600">Dashboard</button>
                 <button onClick={logout} className="block text-red-500 cursor-pointer hover:text-red-600">Logout</button>
               </div>
             ) : (

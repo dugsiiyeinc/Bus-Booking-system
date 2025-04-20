@@ -154,14 +154,13 @@ const SignUp = () => {
 
           {/* Submit Button */}
           <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 disabled:cursor-not-allowed disabled:bg-blue-400 rounded-lg transition duration-200 font-semibold cursor:pointer"
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-400 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-200"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Creating Account...' : 'Create Account'}
+            </button>
 
-
-            disabled={isLoading}
-          >
-          {isLoading ? 'Creating Account...' : 'Create Account'}
-          </button>
         </form>
 
         <p className="text-sm text-center text-gray-600 mt-6">
