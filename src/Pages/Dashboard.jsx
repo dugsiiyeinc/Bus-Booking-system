@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import SidebarDashboard from "../Components/SidebarDashboard"
 import { Toaster } from 'react-hot-toast'
 import { Bus } from 'lucide-react';
+import { Route } from 'lucide-react';
 
 
 const Dashboard = () => {
@@ -88,6 +89,20 @@ const Dashboard = () => {
    <Bus size={20} />
 
    Buses
+  </NavLink>
+
+  <NavLink
+    to="/Dashboard/RouteIndex"
+    className={({ isActive }) =>
+      `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
+        isActive
+          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner'
+          : 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
+      }`
+    }
+  >
+<Route size={24} className="text-blue-600" />
+  Route
   </NavLink>
 
   <NavLink

@@ -13,6 +13,8 @@ import DashboardStatus from "./Pages/DashboardStatus";
 import DashboardHeader from "./Components/DashboardHeader";  // Import the custom header for the dashboard
 import BusIndex from "./Pages/Bus/BusIndex";
 import BusCreate from "./Pages/Bus/BusCreate";
+import RouteIndex from "./Pages/Route/RouteIndex"
+import RouteCreate from "./Pages/Route/RouteCreate"
 
 const router = createBrowserRouter([
     {
@@ -69,6 +71,24 @@ const router = createBrowserRouter([
                 path:"BusesCreate/:id",
                 element: <BusCreate/>
                 
+            },
+
+
+            {
+                path:"RouteIndex",
+                element:<RouteIndex/>
+                
+            },
+
+            {
+                path:"RouteCreate",
+                element:<RouteCreate/>
+
+            },
+            {
+                path:"RouteCreate/:id",
+                element:<RouteCreate/>
+
             },
             {
                 path: "Booking", // Note: no leading slash here
