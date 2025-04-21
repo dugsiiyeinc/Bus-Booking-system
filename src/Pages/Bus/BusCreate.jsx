@@ -8,6 +8,7 @@ const BusCreate = () => {
   const [name, setName] = useState('')
   const [plateNumber, setPlateNumber] = useState('')
   const [totalSeats, setTotalSeats] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
   const {profile, user}= useAuth()
 
   const navigate= useNavigate();
@@ -167,8 +168,12 @@ const BusCreate = () => {
   
       <button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-      >
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg focus:outline-none disabled:cursor-not-allowed focus:ring-2 focus:ring-blue-500 transition"
+
+        disabled={isLoading}
+     
+     
+     >
        {
         isEditMode ? 'Update Bus' : 'Create Bus'
        }
