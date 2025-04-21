@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { Pencil, Trash2 } from 'lucide-react'
 import supabase from '../../Lib/supabase'
 import toast, { Toaster } from 'react-hot-toast'
+import { useAuth } from '../../Context/AuthContext'
 const BusIndex = () => {
   const [buses, setBuses] = useState([])
+  const {user,profile}= useAuth();
+  console.log("userrr",user)
 
   useEffect(() => {
     fetchBuses()
@@ -63,52 +66,54 @@ const BusIndex = () => {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Plate Number</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Total Seats</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Created At</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {buses.length > 0 ? (
-                buses.map((bus) => (
-                  <tr key={bus.id}>
-                    <td className="px-6 py-4 text-sm text-gray-800">{bus.name}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800">{bus.plate_number}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800">{bus.TotalSeats}</td>
-                    <td className="px-6 py-4 text-sm text-gray-500">{new Date(bus.created_at).toLocaleDateString()}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700 flex gap-3">
-                      <Link to={`/Dashboard/BusesCreate/${bus.id}`}
-                        onClick={() => handleEdit(bus.id)}
-                        className="text-blue-600 hover:text-blue-800 transition cursor:pointer"
-                        title="Edit"
-                      >
-                        <Pencil size={18} />
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(bus.id)}
-                        className="text-red-600 hover:text-red-800 transition cursor:pointer"
-                        title="Delete"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
-                    No buses available
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+  {user ? (
+    <table className="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
+      <thead className="bg-gray-100">
+        <tr>
+          <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
+          <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Plate Number</th>
+          <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Total Seats</th>
+          <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Created At</th>
+          <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {buses.length > 0 ? (
+          buses.map((bus) => (
+            <tr key={bus.id}>
+              <td className="px-6 py-4 text-sm text-gray-800">{bus.name}</td>
+              <td className="px-6 py-4 text-sm text-gray-800">{bus.plate_number}</td>
+              <td className="px-6 py-4 text-sm text-gray-800">{bus.TotalSeats}</td>
+              <td className="px-6 py-4 text-sm text-gray-500">{new Date(bus.created_at).toLocaleDateString()}</td>
+              <td className="px-6 py-4 text-sm text-gray-700 flex gap-3">
+                <Link to={`/Dashboard/BusesCreate/${bus.id}`} onClick={() => handleEdit(bus.id)} className="text-blue-600 hover:text-blue-800 transition cursor:pointer" title="Edit">
+                  <Pencil size={18} />
+                </Link>
+                <button onClick={() => handleDelete(bus.id)} className="text-red-600 hover:text-red-800 transition cursor:pointer" title="Delete">
+                  <Trash2 size={18} />
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
+              No buses available
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  ) : (
+    <div className="text-center">
+      <h1 className="text-lg text-gray-600">You need to sign in to view the buses</h1>
+      <Link to="/signin" className="text-blue-600 hover:text-blue-800 transition">
+        Sign In
+      </Link>
+    </div>
+  )}
+</div>
+
       </div>
     </div>
   )

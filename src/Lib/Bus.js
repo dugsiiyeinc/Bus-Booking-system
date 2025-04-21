@@ -21,7 +21,7 @@ export const createBus = async (Bus) => {
         .single()
 
     if (error) {
-        console.error('Error creating article:', error)
+        console.error('Error creating Buses:', error)
         throw error
     }
 

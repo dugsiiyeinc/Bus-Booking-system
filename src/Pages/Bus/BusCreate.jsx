@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { createBus, getBusById, updateBuses } from '../../Lib/Bus'
 import { useAuth } from '../../Context/AuthContext'
 import toast from 'react-hot-toast'
+import supabase from '../../Lib/supabase'
 
 const BusCreate = () => {
   // Define individual states for each input field
@@ -54,78 +55,100 @@ const BusCreate = () => {
 
   },[id,isEditMode,user.id])
 
-  const handleSubmit = async(e) => {
-    e.preventDefault()
-    
+  // Import your supabase client
+
+//   const checkIfPlateNumberExists = async (plateNumber) => {
+//     try {
+//       // Query the database to check if the plate number already exists
+//       const { data, error } = await supabase
+//         .from('buses')  // 'buses' is the name of your table
+//         .select('*')
+//         .eq('plate_number', plateNumber)
+//         .single();  // Check if the plate_number matches
+  
+//       // Log the results for debugging
+//       console.log("dataplatenumber", data);
+//       console.log("error", error);
+  
+//       // Handle any error that might occur in the query
+//       if (error) {
+//         console.error('Error checking plate number:', error);
+//         return false;
+//       }
+  
+//       // If the result contains any records, the plate number already exists
+//       if (data && data.length > 0) {
+//         return true;
+//       }
+      
+//       return false;  // Return false if the plate number does not exist
+//     } catch (error) {
+//       console.error('Error checking plate number:', error);
+//       return false;  // Return false if an error occurs
+//     }
+//   };
+  
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     // Validate form
-    let isValid = true
+    let isValid = true;
     if (!name) {
-      setNameError('Bus name is required')
-      isValid = false
+      setNameError('Bus name is required');
+      isValid = false;
     }
     if (!plateNumber) {
-      setPlateNumberError('Plate number is required')
-      isValid = false
+      setPlateNumberError('Plate number is required');
+      isValid = false;
     }
     if (!totalSeats || isNaN(totalSeats)) {
-      setTotalSeatsError('Total seats must be a number and greater than 0')
-      isValid = false
+      setTotalSeatsError('Total seats must be a number and greater than 0');
+      isValid = false;
     }
-    
+  
+    // // Check if plate_number is unique
     if (isValid) {
-      // Handle successful form submission
-      console.log('Form submitted:', { name, plateNumber, totalSeats })
-      
-      // Clear form after successful submission
-      setName('')
-      setPlateNumber('')
-      setTotalSeats('')
-    }
-
-
-    let BusData={
-        name:name,
-        plate_number:plateNumber,
-        total_seats:totalSeats,
-       
-    }
-
-    console.log('BusData:', BusData)
-
-    let SavedBus;
-
-    if (isEditMode) {
-        // update functions
-        // savedArticle = await updateArticle(id, articleData)
-        SavedBus = await updateBuses(id, BusData)
-        toast.success("Bus Updated successfully!", {
-            position: "top-right", // ama "top-right", "bottom-left", iwm
-
-
-          })
-        navigate("/Dashboard/BusesIndex")
-    } else {
-        // insert || create new article
+    //  const isPlateNumberExists = await checkIfPlateNumberExists(plateNumber);
+    //  console.log("isPlateNumberExists", isPlateNumberExists)
+  
+    //   if (isPlateNumberExists) {
+    //     toast.error('Plate number already exists! Please use a different one.', {
+    //       position: 'top-right',
+    //     });
+    //     return;  // Prevent form submission if plate_number exists
+    //   }
+  
+      let BusData = {
+        name: name,
+        plate_number: plateNumber,
+        total_seats: totalSeats,
+      };
+  
+      console.log('BusData:', BusData);
+  
+      let SavedBus;
+  
+      if (isEditMode) {
+        // Update the bus
+        SavedBus = await updateBuses(id, BusData);
+        toast.success('Bus Updated successfully!', {
+          position: 'top-right',
+        });
+        navigate('/Dashboard/BusesIndex');
+      } else {
+        // Insert new bus
         SavedBus = await createBus(BusData);
-        toast.success("Bus created successfully!", {
-            position: "top-right", // ama "top-right", "bottom-left", iwm
-
-
-          })
-          
-
-        navigate("/Dashboard/BusesIndex")
-
-        console.log('Saved Bus:', SavedBus)
+        toast.success('Bus created successfully!', {
+          position: 'top-right',
+        });
+        navigate('/Dashboard/BusesIndex');
+      }
+  
+      console.log('Saved Bus:', SavedBus);
     }
-
-
-
-
-
-
-  }
-
+  };
+  
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
     <h2 className="text-3xl font-semibold text-gray-800 mb-6">
