@@ -74,6 +74,7 @@ const BusIndex = () => {
           <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Plate Number</th>
           <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Total Seats</th>
           <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Created At</th>
+          <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Updated_At</th>
           <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Actions</th>
         </tr>
       </thead>
@@ -85,6 +86,7 @@ const BusIndex = () => {
               <td className="px-6 py-4 text-sm text-gray-800">{bus.plate_number}</td>
               <td className="px-6 py-4 text-sm text-gray-800">{bus.TotalSeats}</td>
               <td className="px-6 py-4 text-sm text-gray-500">{new Date(bus.created_at).toLocaleDateString()}</td>
+              <td className="px-6 py-4 text-sm text-gray-500">{new Date(bus.updated_at).toLocaleDateString()}</td>
               <td className="px-6 py-4 text-sm text-gray-700 flex gap-3">
                 <Link to={`/Dashboard/BusesCreate/${bus.id}`} onClick={() => handleEdit(bus.id)} className="text-blue-600 hover:text-blue-800 transition cursor:pointer" title="Edit">
                   <Pencil size={18} />
