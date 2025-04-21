@@ -5,6 +5,7 @@ import { useAuth } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import SidebarDashboard from "../Components/SidebarDashboard"
+import { Toaster } from 'react-hot-toast'
 import { Bus } from 'lucide-react';
 
 
@@ -133,6 +134,7 @@ const Dashboard = () => {
 
          
             <main className="flex-1 p-6 overflow-auto bg-gray-50 dark:bg-gray-900">
+            <Toaster  reverseOrder={false} />
               <Outlet />
             </main>
           </div>

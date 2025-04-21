@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Pencil, Trash2 } from 'lucide-react'
 import supabase from '../../Lib/supabase'
-
+import toast, { Toaster } from 'react-hot-toast'
 const BusIndex = () => {
   const [buses, setBuses] = useState([])
 
@@ -33,8 +33,18 @@ const BusIndex = () => {
     const { error } = await supabase.from('Buses').delete().eq('id', busId)
     if (error) {
       console.error('Error deleting bus:', error)
+      toast.error(` Error deleting bus${error}`, {
+        position: "top-right", // ama "top-right", "bottom-left", iwm
+
+
+      })
     } else {
       // Refresh buses after delete
+      toast.success("Bus deleted successfully!", {
+        position: "top-right", // ama "top-right", "bottom-left", iwm
+
+
+      })
       fetchBuses()
     }
   }

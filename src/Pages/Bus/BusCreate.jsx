@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createBus, getBusById, updateBuses } from '../../Lib/Bus'
 import { useAuth } from '../../Context/AuthContext'
+import toast from 'react-hot-toast'
 
 const BusCreate = () => {
   // Define individual states for each input field
@@ -97,10 +98,21 @@ const BusCreate = () => {
         // update functions
         // savedArticle = await updateArticle(id, articleData)
         SavedBus = await updateBuses(id, BusData)
+        toast.success("Bus Updated successfully!", {
+            position: "top-right", // ama "top-right", "bottom-left", iwm
+
+
+          })
         navigate("/Dashboard/BusesIndex")
     } else {
         // insert || create new article
         SavedBus = await createBus(BusData);
+        toast.success("Bus created successfully!", {
+            position: "top-right", // ama "top-right", "bottom-left", iwm
+
+
+          })
+          
 
         navigate("/Dashboard/BusesIndex")
 
