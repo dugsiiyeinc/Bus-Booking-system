@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { Home, Users, Settings, Menu, X, Sun, Moon, LogOut } from 'lucide-react';
 import { useAuth } from '../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import SidebarDashboard from "../Components/SidebarDashboard"
+import { Bus } from 'lucide-react';
+
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -67,6 +72,23 @@ const Dashboard = () => {
     Overview
   </NavLink>
 
+  
+
+  <NavLink
+    to="/Dashboard/BusesIndex"
+    className={({ isActive }) =>
+      `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
+        isActive
+          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner'
+          : 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
+      }`
+    }
+  >
+   <Bus size={20} />
+
+   Buses
+  </NavLink>
+
   <NavLink
     to="/Dashboard/users"
     className={({ isActive }) =>
@@ -80,20 +102,6 @@ const Dashboard = () => {
     <Users size={20} />
     Users
   </NavLink>
-
-  <NavLink
-    to="/Dashboard/Booking"
-    className={({ isActive }) =>
-      `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
-        isActive
-          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner'
-          : 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
-      }`
-    }
-  >
-    <Settings size={20} />
-    Settings
-  </NavLink>
 </nav>
 
           </aside>
@@ -101,26 +109,8 @@ const Dashboard = () => {
 
         <div className="flex flex-1">
       
-          <aside className="hidden md:flex md:flex-col w-64 bg-white dark:bg-gray-800 shadow-lg p-6">
-            <h2 className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mb-8">Admin Panel</h2>
-            <nav className="flex-1 space-y-4">
-              {navLinks.map(({ to, icon, label }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${{
-                      true: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner',
-                      false: 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
-                    }[isActive]}`
-                  }
-                >
-                  {icon}
-                  {label}
-                </NavLink>
-              ))}
-            </nav>
-          </aside>
+       <SidebarDashboard/>
+
 
           
           <div className="flex-1 flex flex-col">
@@ -133,7 +123,7 @@ const Dashboard = () => {
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition"
+                  className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition cursor:pointer"
                 >
                   <LogOut size={16} />
                   Logout

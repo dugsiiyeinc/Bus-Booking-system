@@ -11,6 +11,8 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import UnAuthenticated from "./Components/UnAuthenticated";
 import DashboardStatus from "./Pages/DashboardStatus";
 import DashboardHeader from "./Components/DashboardHeader";  // Import the custom header for the dashboard
+import BusIndex from "./Pages/Bus/BusIndex";
+import BusCreate from "./Pages/Bus/BusCreate";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +54,21 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <DashboardStatus />
+            },
+            {
+                path:"BusesIndex",
+                element: <BusIndex/>
+
+            },
+            {
+                path:"BusesCreate",
+                element: <BusCreate/>
+
+            },
+            {
+                path:"BusesCreate/:id",
+                element: <BusCreate/>
+                
             },
             {
                 path: "Booking", // Note: no leading slash here
