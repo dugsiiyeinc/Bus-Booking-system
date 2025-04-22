@@ -15,6 +15,8 @@ import BusIndex from "./Pages/Bus/BusIndex";
 import BusCreate from "./Pages/Bus/BusCreate";
 import RouteIndex from "./Pages/Route/RouteIndex"
 import RouteCreate from "./Pages/Route/RouteCreate"
+import ScheduleIndex from "./Pages/Schedules/ScheduleIndex";
+import ScheduleCreate from "./Pages/Schedules/ScheduleCreate";
 
 const router = createBrowserRouter([
     {
@@ -89,6 +91,23 @@ const router = createBrowserRouter([
                 path:"RouteCreate/:id",
                 element:<RouteCreate/>
 
+            },
+
+
+
+            {
+                path:"ScheduleIndex",
+                element:<ScheduleIndex/>
+
+            },
+            {
+                path:"ScheduleCreate",
+                element:<ScheduleCreate/>
+
+            },
+            {
+                path:"ScheduleCreate/:id",
+                element:<ScheduleCreate/>
             },
             {
                 path: "Booking", // Note: no leading slash here
