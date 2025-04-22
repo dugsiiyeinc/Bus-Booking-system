@@ -17,6 +17,8 @@ import RouteIndex from "./Pages/Route/RouteIndex"
 import RouteCreate from "./Pages/Route/RouteCreate"
 import ScheduleIndex from "./Pages/Schedules/ScheduleIndex";
 import ScheduleCreate from "./Pages/Schedules/ScheduleCreate";
+import UsersIndex from "./Pages/Users/UsersIndex"
+import UsersCreate from "./Pages/Users/UsersCreate"
 
 const router = createBrowserRouter([
     {
@@ -108,6 +110,14 @@ const router = createBrowserRouter([
             {
                 path:"ScheduleCreate/:id",
                 element:<ScheduleCreate/>
+            },
+            {
+                path:"Users",
+                element:<UsersIndex/>
+            },
+            {
+                path:"Users/:id",
+                element:<UsersCreate/>
             },
             {
                 path: "Booking", // Note: no leading slash here

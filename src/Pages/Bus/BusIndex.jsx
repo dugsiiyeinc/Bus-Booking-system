@@ -70,6 +70,7 @@ const BusIndex = () => {
     <table className="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
       <thead className="bg-gray-100">
         <tr>
+        <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">ID</th>
           <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
           <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Plate Number</th>
           <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Total Seats</th>
@@ -80,8 +81,9 @@ const BusIndex = () => {
       </thead>
       <tbody className="bg-white divide-y divide-gray-200">
         {buses.length > 0 ? (
-          buses.map((bus) => (
+          buses.map((bus,index) => (
             <tr key={bus.id}>
+                  <td className="px-6 py-4 text-sm text-gray-800">{index+1}</td>
               <td className="px-6 py-4 text-sm text-gray-800">{bus.name}</td>
               <td className="px-6 py-4 text-sm text-gray-800">{bus.plate_number}</td>
               <td className="px-6 py-4 text-sm text-gray-800">{bus.TotalSeats}</td>

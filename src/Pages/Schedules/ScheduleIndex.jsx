@@ -63,6 +63,7 @@ const ScheduleIndex = () => {
           <table className="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">ID</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Bus</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Plate_Number</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Route</th>
@@ -74,8 +75,9 @@ const ScheduleIndex = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {schedules.map((schedule) => (
+              {schedules.map((schedule,index) => (
                 <tr key={schedule.id}>
+                    <td className="px-6 py-4 text-sm text-gray-800">{index+1}</td>
                   <td className="px-6 py-4 text-sm text-gray-800">{schedule.Buses.name}</td>
                   <td className="px-6 py-4 text-sm text-gray-800">{schedule.Buses.plate_number}</td>
                   <td className="px-6 py-4 text-sm text-gray-800">
