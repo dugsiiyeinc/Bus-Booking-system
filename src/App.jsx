@@ -7,6 +7,7 @@ import Signin from './Pages/Signin'
 import Signup from './Pages/Signup'
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import Footer from './Components/Footer'
 
 const App = () => {
   return (
@@ -24,6 +25,8 @@ const App = () => {
       <Toaster reverseOrder={false} />
       <Outlet/>
       </main>
+
+      <Footer/>
 
       
       
