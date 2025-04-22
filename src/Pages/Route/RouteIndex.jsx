@@ -61,6 +61,7 @@ const RouteIndex = () => {
           <table className="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">ID</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">From City</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">To City</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Created At</th>
@@ -69,8 +70,9 @@ const RouteIndex = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {Route.map((route) => (
+              {Route.map((route,index) => (
                 <tr key={route.id}>
+                     <td className="px-6 py-4 text-sm text-gray-800">{index+1}</td>
                   <td className="px-6 py-4 text-sm text-gray-800">{route.From_city}</td>
                   <td className="px-6 py-4 text-sm text-gray-800">{route.To_city}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">

@@ -131,7 +131,7 @@ SChedules
   </NavLink>
 
   <NavLink
-    to="/Dashboard/users"
+    to="/Dashboard/Users"
     className={({ isActive }) =>
       `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
         isActive
