@@ -19,6 +19,7 @@ import ScheduleIndex from "./Pages/Schedules/ScheduleIndex";
 import ScheduleCreate from "./Pages/Schedules/ScheduleCreate";
 import UsersIndex from "./Pages/Users/UsersIndex"
 import UsersCreate from "./Pages/Users/UsersCreate"
+import Buses from "./Pages/Buses"
 
 const router = createBrowserRouter([
     {
@@ -39,6 +40,14 @@ const router = createBrowserRouter([
                 <UnAuthenticated>
                     <Signin />
                 </UnAuthenticated>
+            },
+            {
+                path:"Buses",
+                
+                element:
+                <ProtectedRoute>
+                <Buses/>
+                </ProtectedRoute>
             },
             {
                 path: "/Signup",
