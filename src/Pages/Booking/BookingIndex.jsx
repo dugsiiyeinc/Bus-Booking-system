@@ -59,9 +59,6 @@ const BookingIndex = () => {
     }
   };
 
-  const handleEdit = (id) => {
-    navigate(`/bookings/edit/${id}`);
-  };
 
   return (
     <div className="container max-w-6xl mx-auto mt-10">
@@ -131,9 +128,9 @@ const BookingIndex = () => {
                       <div className="flex gap-2">
                         <Link
                           to={`/Dashboard/BookingIndex/${booking.id}`}
-                          onClick={() => handleEdit(booking.id)}
+                        
                           className="text-green-600 hover:text-green-800"
-                          title="Edit"
+                          // title="Edit"
                         >
                           <Pencil size={18} />
                         </Link>
