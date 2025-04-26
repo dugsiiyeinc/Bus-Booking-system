@@ -9,6 +9,7 @@ import { Toaster } from 'react-hot-toast'
 import { Bus } from 'lucide-react';
 import { Route } from 'lucide-react';
 import { FaRegCalendarAlt } from 'react-icons/fa';
+import { FaTicketAlt } from "react-icons/fa"; // icon cusub
 
 function ScheduleButton() {
   return (
@@ -128,6 +129,20 @@ const Dashboard = () => {
   >
  <FaRegCalendarAlt  size={24} className="text-blue-600" />
 SChedules
+  </NavLink>
+
+  <NavLink
+    to="/Dashboard/BookingIndex"
+    className={({ isActive }) =>
+      `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
+        isActive
+          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner'
+          : 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
+      }`
+    }
+  >
+  <FaTicketAlt size={24} className="text-blue-600" /> 
+Booking
   </NavLink>
 
   <NavLink
