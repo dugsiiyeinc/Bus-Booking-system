@@ -20,6 +20,8 @@ import ScheduleCreate from "./Pages/Schedules/ScheduleCreate";
 import UsersIndex from "./Pages/Users/UsersIndex"
 import UsersCreate from "./Pages/Users/UsersCreate"
 import Buses from "./Pages/Buses"
+import BookingIndex from "./Pages/Booking/BookingIndex";
+import BookingCreate from "./Pages/Booking/BookingCreate";
 
 const router = createBrowserRouter([
     {
@@ -127,6 +129,15 @@ const router = createBrowserRouter([
             {
                 path:"ScheduleCreate/:id",
                 element:<ScheduleCreate/>
+            },
+
+            {
+                path:"BookingIndex",
+                element:<BookingIndex/>
+            },{
+                path:"BookingCreate/:id",
+                element:<BookingCreate/>
+
             },
             {
                 path:"Users",
