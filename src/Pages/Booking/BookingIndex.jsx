@@ -130,7 +130,7 @@ const BookingIndex = () => {
                     <td className="px-6 py-4 text-sm">
                       <div className="flex gap-2">
                         <Link
-                          to={`/Dashboard/BookingCreate/${booking.id}`}
+                          to={`/Dashboard/BookingIndex/${booking.id}`}
                           onClick={() => handleEdit(booking.id)}
                           className="text-green-600 hover:text-green-800"
                           title="Edit"
