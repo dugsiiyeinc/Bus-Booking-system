@@ -3,7 +3,7 @@ import { useTheme } from '../Context/ThemeContext';
 import { useAuth } from '../Context/AuthContext';
 import supabase from '../Lib/supabase';
 import { useParams } from 'react-router-dom';
-import { FaBusAlt, FaMapMarkerAlt, FaClock, FaDollarSign, FaIdCard, FaPhone, FaMoneyCheckAlt } from "react-icons/fa"; // Extra icons
+import { FaBusAlt, FaMapMarkerAlt, FaClock, FaDollarSign, FaIdCard } from "react-icons/fa";
 import toast from 'react-hot-toast';
 
 const Booking = () => {
@@ -14,8 +14,6 @@ const Booking = () => {
   const [schedule, setSchedule] = useState(null);
   const [selectedDay, setSelectedDay] = useState("");
   const [username, setUsername] = useState("");
-  const [phone, setPhone] = useState(""); // New
-  const [typePayment, setTypePayment] = useState(""); // New
 
   useEffect(() => {
     const fetchSchedule = async () => {
@@ -32,7 +30,7 @@ const Booking = () => {
     const fetchUserData = async () => {
       if (user && user.id) {
         const { data, error } = await supabase
-          .from("users")
+          .from("users") // Make sure table name matches Supabase (case sensitive)
           .select("username")
           .eq("id", user.id)
           .single();
@@ -55,8 +53,8 @@ const Booking = () => {
       return;
     }
 
-    if (!selectedDay || !phone || !typePayment) {
-      toast.error("Fadlan dhammee foomka booking-ga.");
+    if (!selectedDay) {
+      toast.error("Fadlan dooro maalin.");
       return;
     }
 
@@ -66,8 +64,6 @@ const Booking = () => {
       username,
       day: selectedDay,
       status: "pending",
-      phone,            // New
-      Type_payment: typePayment, //
     });
 
     if (!error) {
@@ -82,7 +78,7 @@ const Booking = () => {
 
   return (
     <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 transition duration-300 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-gray-50 to-blue-100 text-gray-900'}`}>
-      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800/80 text-gray-900 dark:text-white shadow-xl rounded-3xl p-8">
+      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800/80 shadow-xl rounded-3xl p-8">
         <h2 className="text-3xl font-extrabold text-center mb-6">🎫 Booking Confirmation</h2>
 
         {username && (
@@ -117,15 +113,13 @@ const Booking = () => {
             <FaDollarSign className="text-green-600 text-lg" />
             <p><strong>Price:</strong> ${schedule.price}</p>
           </div>
-
-          {/* Select Day */}
           <div className="flex items-center gap-3">
             <label htmlFor="day-select"><strong>Select Day:</strong></label>
             <select
               id="day-select"
               value={selectedDay}
               onChange={(e) => setSelectedDay(e.target.value)}
-              className="p-2 rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
+              className="bg-gray-200 p-2 rounded-lg"
             >
               <option value="">Choose a day</option>
               {schedule.days_of_week.map((day, index) => (
@@ -133,35 +127,6 @@ const Booking = () => {
               ))}
             </select>
           </div>
-
-          {/* Phone Input */}
-          <div className="flex items-center gap-3">
-            <FaPhone className="text-purple-500 text-lg" />
-            <input
-              type="text"
-              placeholder="Enter phone number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="flex-1 p-2 rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
-            />
-          </div>
-
-          {/* Type of Payment Input */}
-          {/* Type of Payment Select */}
-<div className="flex items-center gap-3">
-  <FaMoneyCheckAlt className="text-green-700 text-lg" />
-  <select
-    value={typePayment}
-    onChange={(e) => setTypePayment(e.target.value)}
-    className="flex-1 p-2 rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
-  >
-    <option value="">Choose payment type</option>
-    <option value="cash">Cash</option>
-    <option value="card">Card</option>
-    <option value="bank">Bank</option>
-  </select>
-</div>
-
         </div>
 
         <button

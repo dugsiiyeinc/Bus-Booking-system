@@ -49,6 +49,14 @@ const router = createBrowserRouter([
                 <Buses/>
                 </ProtectedRoute>
             },
+
+            {
+                path:"/booking/:id",
+                element:
+                <ProtectedRoute>
+                    <Booking/>
+                </ProtectedRoute>
+            },
             {
                 path: "/Signup",
                 element:

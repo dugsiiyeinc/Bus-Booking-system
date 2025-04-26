@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "../Context/ThemeContext";
 import supabase from "../Lib/supabase";
 import { FaBusAlt, FaClock, FaMapMarkerAlt, FaDollarSign } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Buses = () => {
   const { theme } = useTheme();
   const [schedules, setSchedules] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSchedules = async () => {
@@ -16,19 +18,21 @@ const Buses = () => {
           departure_time,
           price,
           days_of_week,
-       
           Buses ( name, plate_number ),
           Routes ( From_city, To_city )
-        `);
-
+        `)
+        .order("id", { ascending: true })  // Sort by id in descending order (most recent first)
+      // Optional: limit to only the last 10 schedules
+    
       if (error) {
         console.error("Error fetching schedules:", error.message);
       } else {
         setSchedules(data);
       }
     };
-
+    
     fetchSchedules();
+    
   }, []);
 
   return (
@@ -43,12 +47,12 @@ const Buses = () => {
             {schedules.map((item) => (
               <div
                 key={item.id}
-                className={`relative bg-white dark:bg-gray-800/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 p-6 group`}
+                className={`relative bg-white dark:bg-gray-800/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 p-6 group transform hover:scale-105`}
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <FaBusAlt className="text-blue-600 group-hover:scale-110 transition-transform duration-300 text-xl" />
-                    <h3 className="text-xl font-semibold">{item.Buses?.name}</h3>
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{item.Buses?.name}</h3>
                   </div>
                   <span className="text-xs font-mono text-gray-400 dark:text-gray-300">{item.Buses?.plate_number}</span>
                 </div>
@@ -94,15 +98,16 @@ const Buses = () => {
                 </div>
 
                 <button
-                  disabled={item.status === "departed"}
-                  className={`w-full py-2 px-4 rounded-xl font-bold text-sm transition duration-300 shadow ${
-                    item.status === "departed"
-                      ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                      : "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90"
-                  }`}
-                >
-                  {item.status === "departed" ? "Not Available" : "Book Now"}
-                </button>
+  disabled={item.status === "departed"}
+  onClick={() => navigate(`/booking/${item.id}`)}
+  className={`w-full py-2 px-4 rounded-xl font-bold text-sm transition duration-300 shadow-lg ${
+    item.status === "departed"
+      ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+      : "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90"
+  }`}
+>
+  {item.status === "departed" ? "Not Available" : "Book Now"}
+</button>
               </div>
             ))}
           </div>
