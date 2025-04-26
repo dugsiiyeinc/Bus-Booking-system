@@ -10,6 +10,7 @@ import { Bus } from 'lucide-react';
 import { Route } from 'lucide-react';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { FaTicketAlt } from "react-icons/fa"; // icon cusub
+import supabase from '../Lib/supabase';
 
 function ScheduleButton() {
   return (
@@ -26,11 +27,64 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
     const {  IsLoggedIn,  profile, logout, user}= useAuth();
   const [darkMode, setDarkMode] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
+
 
   const handleLogout = () => {
    
    logout()
   };
+
+
+  // Fetch initial pending count
+  const fetchPendingCount = async () => {
+    const { count, error } = await supabase
+      .from('Bookings')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending');
+
+    if (error) {
+      console.error('Error fetching pending bookings count:', error.message);
+    } else {
+      setPendingCount(count);
+    }
+  };
+
+  // Realtime subscription for pending bookings updates
+  useEffect(() => {
+    fetchPendingCount();
+  
+    // // Realtime subscription
+    // const subscription = supabase
+    //   .from('Bookings')
+    //   .on('INSERT', payload => {
+    //     if (payload.new.status === 'pending') {
+    //       setPendingCount(prevCount => prevCount + 1); // Add 1 to pending count on insert
+    //     }
+    //   })
+    //   .on('UPDATE', payload => {
+    //     if (payload.new.status === 'pending' && payload.old.status !== 'pending') {
+    //       setPendingCount(prevCount => prevCount + 1); // Add 1 if a booking changes to pending
+    //     }
+    //     if (payload.old.status === 'pending' && payload.new.status !== 'pending') {
+    //       setPendingCount(prevCount => prevCount - 1); // Subtract 1 if a booking changes from pending
+    //     }
+    //   })
+    //   .on('DELETE', payload => {
+    //     if (payload.old.status === 'pending') {
+    //       setPendingCount(prevCount => prevCount - 1); // Subtract 1 on delete if status was pending
+    //     }
+    //   })
+    //   .subscribe();
+  
+    // // Clean up subscription on unmount
+    // return () => {
+    //   subscription.unsubscribe();
+    // };
+  }, []); // Empty dependency array ensures this effect runs only once on mount
+  
+
+  console.log("pendingCount", pendingCount)
 
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
@@ -132,18 +186,22 @@ SChedules
   </NavLink>
 
   <NavLink
-    to="/Dashboard/BookingIndex"
-    className={({ isActive }) =>
-      `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
-        isActive
-          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner'
-          : 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
-      }`
-    }
-  >
-  <FaTicketAlt size={24} className="text-blue-600" /> 
-Booking
-  </NavLink>
+  to="/Dashboard/BookingIndex"
+  className={({ isActive }) =>
+    `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
+      isActive
+        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner'
+        : 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
+    }`
+  }
+>
+  <FaTicketAlt size={24} className="text-blue-600" />
+  <span className="flex items-center gap-2">
+    <span className="text-red-900 font-semibold">{pendingCount}</span>
+    <span>Booking</span>
+  </span>
+</NavLink>
+
 
   <NavLink
     to="/Dashboard/Users"
