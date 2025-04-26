@@ -135,7 +135,7 @@ const router = createBrowserRouter([
                 path:"BookingIndex",
                 element:<BookingIndex/>
             },{
-                path:"BookingCreate/:id",
+                path:"BookingIndex/:id",
                 element:<BookingCreate/>
 
             },
