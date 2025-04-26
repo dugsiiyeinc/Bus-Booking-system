@@ -61,7 +61,7 @@ const Header = () => {
           {IsLoggedIn && (
             <Link to="/Buses" className={`hover:${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'} transition`}>Buses</Link>
           )}
-          <Link to="/bookings" className={`hover:${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'} transition`}>Bookings</Link>
+         
           <Link to="/About" className={`hover:${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'} transition`}>About</Link>
         </nav>
 
@@ -125,7 +125,7 @@ const Header = () => {
         <div className={`md:hidden px-4 pb-4 space-y-2 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'} shadow-sm`}>
           <Link to="/" onClick={toggleMenu} className={`block hover:${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Home</Link>
           <Link to="/buses" onClick={toggleMenu} className={`block hover:${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Buses</Link>
-          <Link to="/bookings" onClick={toggleMenu} className={`block hover:${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>Bookings</Link>
+         
           <Link to="/About" onClick={toggleMenu} className={`block hover:${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>About</Link>
           <hr />
           {IsLoggedIn ? (
