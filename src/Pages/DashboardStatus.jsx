@@ -77,6 +77,30 @@ const DashboardStatus = () => {
       </div>
 
 
+      {/*  with Circle Style */}
+      <div className="text-center mb-12 mt-5">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Overview of Tables</h2>
+        <div className="w-80 h-80 mx-auto bg-white rounded-full flex justify-center items-center shadow-lg">
+          <PieChart width={320} height={320}>
+            <Pie
+              data={pieData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={120}
+              fill="#8884d8"
+              label
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </div>
+      </div>
            
 
     </div>
