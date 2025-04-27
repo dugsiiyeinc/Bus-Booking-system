@@ -55,6 +55,28 @@ const DashboardStatus = () => {
   return (
     <div className="p-8 bg-gray-100 rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Dashboard Overview</h1>
+
+       {/* in Rectangle Cards */}
+       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">Buses</h3>
+          <p className="text-3xl font-bold text-green-500">{busesCount}</p>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">Routes</h3>
+          <p className="text-3xl font-bold text-green-500">{routesCount}</p>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">Schedules</h3>
+          <p className="text-3xl font-bold text-green-500">{schedulesCount}</p>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">Bookings</h3>
+          <p className="text-3xl font-bold text-green-500">{bookingsCount}</p>
+        </div>
+      </div>
+
+
            
 
     </div>
