@@ -1,64 +1,89 @@
-🚌 Bus Booking System
-Bus Booking System waa web application casri ah oo kuu oggolaanaya in aad raadiso, jadwal ka eegi karto, una qabsan karto safarada basaska si fudud. Waxaa la dhisay iyadoo la adeegsanayo React frontend iyo Supabase backend ahaan.
+# 🚌✨ Bus Booking System
 
-✨ Features
-✅ Isdiiwaangelin iyo Login (Authentication)
+[![React](https://img.shields.io/badge/Frontend-React-blue.svg)](https://react.dev/)
+[![Supabase](https://img.shields.io/badge/Backend-Supabase-green.svg)](https://supabase.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-✅ Raadinta Jadwalka Baska (Search Routes & Schedules)
+---
 
-✅ Booking Tigidhada Safarka
+## 📖 Overview
 
-✅ Maareynta Jadwalka (Admin Panel)
+**Bus Booking System** waa web application kuu ogolaanaya inaad si fudud u raadiso safarada basaska, jadwalka eego, tigidhadana online ka qabsato.
+Mashruucan waxa uu adeegsanayaa **React** frontend iyo **Supabase** backend si loo helo adeeg deg deg ah oo ammaan ah.
 
-✅ Soo saarista Rasiidh (PDF / Printable Receipt) marka Booking la dhammeeyo
+---
 
-🛠️ Teknolojiyada la Isticmaalay
-⚛️ React — Frontend Framework
+## 🚀 Features
 
-🛢️ Supabase — Backend (Database + Authentication)
+- 🔐 **Authentication** (Signup / Login)
+- 🚣️ **View Routes & Schedules** (Raadi safarada)
+- 🎟️ **Book Tickets** (Qabsashada Tigidhada)
+- 📄 **Generate Receipts** (Rasiidh la daabici karo)
+- 🛠️ **Admin Panel** (Jadwalka & Booking Management)
+- 📊 **User-friendly Dashboard**
 
-🎨 TailwindCSS (haddii aad isticmaashay)
+---
 
-🛠️ Vite — Development Build Tool
+## 🛠 Tech Stack
 
-📦 Installation
-Clone the repository:
+| Frontend | Backend | Styling | Tools |
+|:--------:|:-------:|:-------:|:-----:|
+| React | Supabase (Postgres + Auth) | TailwindCSS | Vite |
 
-bash
-Copy
-Edit
+---
+
+## 🧰 Installation & Setup
+
+**1. Clone Repository:**
+```bash
 git clone https://github.com/your-username/bus-booking-system.git
 cd bus-booking-system
-Install dependencies:
+```
 
-bash
-Copy
-Edit
+**2. Install Packages:**
+```bash
 npm install
-Create .env file oo geli keys ka Supabase:
+```
 
-bash
-Copy
-Edit
+**3. Setup Environment Variables (.env file):**
+```bash
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-Run Development Server:
+```
 
-bash
-Copy
-Edit
+**4. Run Development Server:**
+```bash
 npm run dev
-App-ka ka fur browser ka:
+```
 
-arduino
-Copy
-Edit
+**5. Access App:**
+```
 http://localhost:5173
-🛤️ Database Tables Overview
+```
 
-Table Name	Description
-Users	Isticmaalayaasha diiwaangashan
-Buses	Xogta basaska (Magac, Number Plate, Capacity)
-Routes	Goobaha laga raaco iyo loo socdo
-Schedules	Jadwalka safarada (Route + Bus + Time)
-Bookings	Qabsashada tigidhada safarka
+---
+
+## 🛄️ Database Tables
+
+- **Users** ➔ Macaamiisha & Admins
+- **Buses** ➔ Xogta Basaska
+- **Routes** ➔ Goobaha laga raaco & loo socdo
+- **Schedules** ➔ Jadwalka safarada
+- **Bookings** ➔ Qabsashada tigidhada
+
+---
+
+## 📸 Demo (Optional)
+
+*(Halkaan waxaad gali kartaa sawirada App-kaaga haddii aad haysato!)*
+
+---
+
+## 📜 License
+
+Licensed under the [MIT License](https://opensource.org/licenses/MIT).
+**Free to use, modify, and distribute.**
+
+---
+
+> **Developed with ❤️ using React & Supabase**
