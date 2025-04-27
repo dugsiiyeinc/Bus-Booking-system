@@ -16,8 +16,9 @@ const About = () => {
         className="absolute inset-0 bg-cover bg-center z-0 transition-all duration-700"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1950&q=80)',
-          filter: theme === 'dark' ? 'brightness(0.3)' : 'brightness(0.6)',
+          filter: theme === 'dark' ? 'brightness(0.8)' : 'brightness(0.6)',
         }}
+        
       />
 
       {/* Dark/Light Gradient Overlay */}
