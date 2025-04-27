@@ -36,7 +36,7 @@ Mashruucan waxa uu adeegsanayaa **React** frontend iyo **Supabase** backend si l
 
 **1. Clone Repository:**
 ```bash
-git clone https://github.com/your-username/bus-booking-system.git
+git clone https://github.com/dugsiiyeinc/Bus-Booking-system.git
 cd bus-booking-system
 ```
 
