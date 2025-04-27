@@ -43,7 +43,7 @@ const Header = () => {
       navigate('/Signin'); // Redirect to sign-in
       return;
     }
-    navigate('/Dashboard'); // Redirect to the dashboard page
+    navigate('/Dashboard/Overview'); // Redirect to the dashboard page
     toggleMenu();
   };
 

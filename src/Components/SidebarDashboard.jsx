@@ -128,7 +128,7 @@ const SidebarDashboard = () => {
       <h2 className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mb-8">Admin Panel</h2>
       <nav className="flex-1 space-y-4">
         <NavLink
-          to="/Dashboard/overview"
+          to="/Dashboard/Overview"
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
               isActive

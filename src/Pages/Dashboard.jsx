@@ -36,52 +36,107 @@ const Dashboard = () => {
   };
 
 
-  // Fetch initial pending count
   const fetchPendingCount = async () => {
     const { count, error } = await supabase
-      .from('Bookings')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'pending');
+      .from("Bookings")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "pending");
 
     if (error) {
-      console.error('Error fetching pending bookings count:', error.message);
+      console.error("Error fetching pending bookings count:", error.message);
     } else {
-      setPendingCount(count);
+      setPendingCount(count); // Update the state to trigger re-render
     }
   };
 
-  // Realtime subscription for pending bookings updates
   useEffect(() => {
+    // Fetch initial pending bookings count
     fetchPendingCount();
-  
-    // // Realtime subscription
-    // const subscription = supabase
-    //   .from('Bookings')
-    //   .on('INSERT', payload => {
-    //     if (payload.new.status === 'pending') {
-    //       setPendingCount(prevCount => prevCount + 1); // Add 1 to pending count on insert
+
+    // // Verify Supabase real-time
+    // const verifySupabaseRealTime = async () => {
+    //   try {
+    //     // List all current channels
+    //     const channels = supabase.getChannels();
+    //     console.log("Current active channels", channels.length);
+
+    //     // Test fetching data (useful for debugging connection)
+    //     const { error, data } = await supabase
+    //       .from("Bookings")
+    //       .select("*")
+    //       .eq("status", "pending");
+
+    //     if (error) {
+    //       console.error("Error connecting to Supabase:", error);
+    //     } else {
+    //       console.log("Connected to Supabase successfully, pending count:", data);
     //     }
-    //   })
-    //   .on('UPDATE', payload => {
-    //     if (payload.new.status === 'pending' && payload.old.status !== 'pending') {
-    //       setPendingCount(prevCount => prevCount + 1); // Add 1 if a booking changes to pending
-    //     }
-    //     if (payload.old.status === 'pending' && payload.new.status !== 'pending') {
-    //       setPendingCount(prevCount => prevCount - 1); // Subtract 1 if a booking changes from pending
-    //     }
-    //   })
-    //   .on('DELETE', payload => {
-    //     if (payload.old.status === 'pending') {
-    //       setPendingCount(prevCount => prevCount - 1); // Subtract 1 on delete if status was pending
-    //     }
-    //   })
-    //   .subscribe();
-  
-    // // Clean up subscription on unmount
-    // return () => {
-    //   subscription.unsubscribe();
+    //   } catch (error) {
+    //     console.log("Error during real-time check:", error);
+    //   }
     // };
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+
+    // // Run the verification function
+    // verifySupabaseRealTime();
+
+    // // Cleanup any existing subscriptions first
+    // supabase.getChannels().forEach((channel) => {
+    //   console.log("Found channel:", channel.topic);
+    //   supabase.removeChannel(channel); // Remove the channel to avoid duplicates
+    // });
+
+    // // Create a new subscription for the Bookings table
+    // const bookingChannel = supabase
+    //   .channel("Bookings-channel") // Unique name for the channel
+    //   .on(
+    //     "postgres_changes", 
+    //     {
+    //       event: "INSERT",
+    //       schema: "public",
+    //       table: "Bookings",
+    //       filter: "status=eq.pending",
+    //     },
+    //     (payload) => {
+    //       console.log("Insert Event received:", payload);
+    //       fetchPendingCount(); // Re-fetch the pending count after insert
+    //     }
+    //   )
+    //   .on(
+    //     "postgres_changes", 
+    //     {
+    //       event: "UPDATE",
+    //       schema: "public",
+    //       table: "Bookings",
+    //       filter: "status=eq.pending",
+    //     },
+    //     (payload) => {
+    //       console.log("Update Event received:", payload);
+    //       fetchPendingCount(); // Re-fetch the pending count after update
+    //     }
+    //   )
+    //   .on(
+    //     "postgres_changes", 
+    //     {
+    //       event: "DELETE",
+    //       schema: "public",
+    //       table: "Bookings",
+    //       filter: "status=eq.pending",
+    //     },
+    //     (payload) => {
+    //       console.log("Delete Event received:", payload);
+    //       fetchPendingCount(); // Re-fetch the pending count after delete
+    //     }
+    //   )
+    //   .subscribe();
+
+    // // Cleanup function for component unmount
+    // return () => {
+    //   supabase.getChannels().forEach((channel) => {
+    //     console.log("Removing channel:", channel.topic);
+    //     supabase.removeChannel(channel); // Remove all active channels when the component unmounts
+    //   });
+    // };
+  }, []);
   
 
   console.log("pendingCount", pendingCount)
@@ -127,7 +182,7 @@ const Dashboard = () => {
             </div>
             <nav className="flex-1 space-y-4">
   <NavLink
-    to="/Dashboard/overview"
+    to="/Dashboard/Overview"
     className={({ isActive }) =>
       `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
         isActive
