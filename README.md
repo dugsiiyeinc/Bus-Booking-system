@@ -1,12 +1,64 @@
-# React + Vite
+🚌 Bus Booking System
+Bus Booking System waa web application casri ah oo kuu oggolaanaya in aad raadiso, jadwal ka eegi karto, una qabsan karto safarada basaska si fudud. Waxaa la dhisay iyadoo la adeegsanayo React frontend iyo Supabase backend ahaan.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+✅ Isdiiwaangelin iyo Login (Authentication)
 
-Currently, two official plugins are available:
+✅ Raadinta Jadwalka Baska (Search Routes & Schedules)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✅ Booking Tigidhada Safarka
 
-## Expanding the ESLint configuration
+✅ Maareynta Jadwalka (Admin Panel)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ Soo saarista Rasiidh (PDF / Printable Receipt) marka Booking la dhammeeyo
+
+🛠️ Teknolojiyada la Isticmaalay
+⚛️ React — Frontend Framework
+
+🛢️ Supabase — Backend (Database + Authentication)
+
+🎨 TailwindCSS (haddii aad isticmaashay)
+
+🛠️ Vite — Development Build Tool
+
+📦 Installation
+Clone the repository:
+
+bash
+Copy
+Edit
+git clone https://github.com/your-username/bus-booking-system.git
+cd bus-booking-system
+Install dependencies:
+
+bash
+Copy
+Edit
+npm install
+Create .env file oo geli keys ka Supabase:
+
+bash
+Copy
+Edit
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+Run Development Server:
+
+bash
+Copy
+Edit
+npm run dev
+App-ka ka fur browser ka:
+
+arduino
+Copy
+Edit
+http://localhost:5173
+🛤️ Database Tables Overview
+
+Table Name	Description
+Users	Isticmaalayaasha diiwaangashan
+Buses	Xogta basaska (Magac, Number Plate, Capacity)
+Routes	Goobaha laga raaco iyo loo socdo
+Schedules	Jadwalka safarada (Route + Bus + Time)
+Bookings	Qabsashada tigidhada safarka
