@@ -77,8 +77,8 @@ const router = createBrowserRouter([
         </ProtectedRoute>,
         children: [
             {
-                index: true,
-                element: <DashboardStatus />
+                path:"Overview",
+                element: <DashboardStatus/>
             },
             {
                 path:"BusesIndex",
