@@ -22,6 +22,7 @@ import UsersCreate from "./Pages/Users/UsersCreate"
 import Buses from "./Pages/Buses"
 import BookingIndex from "./Pages/Booking/BookingIndex";
 import BookingCreate from "./Pages/Booking/BookingCreate";
+import UnAuthentication from "./Components/UnAuthentication";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
                 <UnAuthenticated>
                     <Signin />
                 </UnAuthenticated>
+            },
+            {
+                path:"/UnAuthenticated",
+                element:<UnAuthentication/>
             },
             {
                 path:"Buses",

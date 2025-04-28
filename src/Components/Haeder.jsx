@@ -5,6 +5,7 @@ import { useAuth } from '../Context/AuthContext';
 import supabase from '../Lib/supabase';
 
 import { useTheme } from '../Context/ThemeContext';
+import NotFound from '../Components/NotFound';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,8 @@ const Header = () => {
 
   const handleDashboardClick = () => {
     if (userRole !== 'admin') {
-      navigate('/Signin'); // Redirect to sign-in
+       navigate('/UnAuthenticated'); // Redirect to sign-in
+      <NotFound/>
       return;
     }
     navigate('/Dashboard/Overview'); // Redirect to the dashboard page

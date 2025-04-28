@@ -107,24 +107,24 @@ const BookingIndex = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {bookings.map((booking) => (
                   <tr key={booking.id}>
-                    <td className="px-6 py-4 text-sm text-gray-800">{booking.username}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800">{booking.phone}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800">{booking.day}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800">
+                    <td className="px-6 py-4 text-2xl  text-gray-800">{booking.username}</td>
+                    <td className="px-6 py-4 text-2xl  text-gray-800">{booking.phone}</td>
+                    <td className="px-6 py-4 text-2xl  text-gray-800">{booking.day}</td>
+                    <td className="px-6 py-4 text-2xl  text-gray-800">
                       {booking.Schedules?.Routes
                         ? `${booking.Schedules.Routes.From_city} → ${booking.Schedules.Routes.To_city}`
                         : 'N/A'}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-800">{booking.Type_payment}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800 capitalize">{booking.status}</td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-6 py-4 text-2xl  text-gray-800">{booking.Type_payment}</td>
+                    <td className="px-6 py-4 text-2xl  text-gray-800 capitalize">{booking.status}</td>
+                    <td className="px-6 py-4 text-2xl  text-gray-500">
                       {new Date(booking.created_at).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'short',
                         day: 'numeric',
                       })}
                     </td>
-                    <td className="px-6 py-4 text-sm">
+                    <td className="px-6 py-4 text-2xl ">
                       <div className="flex gap-2">
                         <Link
                           to={`/Dashboard/BookingIndex/${booking.id}`}

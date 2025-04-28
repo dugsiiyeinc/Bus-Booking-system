@@ -77,24 +77,24 @@ const ScheduleIndex = () => {
             <tbody className="bg-white divide-y divide-gray-200">
               {schedules.map((schedule,index) => (
                 <tr key={schedule.id}>
-                    <td className="px-6 py-4 text-sm text-gray-800">{index+1}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{schedule.Buses.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{schedule.Buses.plate_number}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">
+                    <td className="px-6 py-4 text-2xl  text-gray-800">{index+1}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-800">{schedule.Buses.name}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-800">{schedule.Buses.plate_number}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-800">
                     {schedule.Routes.From_city} - {schedule.Routes.To_city}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800">
+                  <td className="px-6 py-4 text-2xl  text-gray-800">
   {(schedule.departure_time)}
 </td>
 
-                  <td className="px-6 py-4 text-sm text-gray-800">
+                  <td className="px-6 py-4 text-2xl  text-gray-800">
                     {Array.isArray(schedule.days_of_week) ? schedule.days_of_week.join(", ") : 'N/A'}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800">${schedule.price.toFixed(2)}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-2xl  text-gray-800">${schedule.price.toFixed(2)}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-500">
                     {new Date(schedule.created_at).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-700 flex gap-3">
+                  <td className="px-6 py-4 text-2xl  text-gray-700 flex gap-3">
                 <Link to={`/Dashboard/ScheduleCreate/${schedule.id}`} onClick={() => handleEdit(schedule.id)} className="text-blue-600 hover:text-blue-800 transition cursor:pointer" title="Edit">
                   <Pencil size={18} />
                 </Link>

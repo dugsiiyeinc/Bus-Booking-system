@@ -18,7 +18,7 @@ const Buses = () => {
           departure_time,
           price,
           days_of_week,
-          Buses ( name, plate_number ),
+          Buses ( name, plate_number,TotalSeats ),
           Routes ( From_city, To_city )
         `)
         .order("id", { ascending: true })  // Sort by id in descending order (most recent first)
@@ -72,6 +72,11 @@ const Buses = () => {
                 <div className="flex items-center text-sm text-gray-600 dark:text-gray-300 mb-3 gap-2">
                   <FaDollarSign className="text-green-600" />
                   <span className="font-semibold">${item.price}</span>
+                </div>
+
+                 {/* Show TotalSeats */}
+                 <div className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                  <span className="font-medium">Total Seats: {item.Buses?.TotalSeats}</span>
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-4">

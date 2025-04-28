@@ -44,7 +44,7 @@ const RouteIndex = () => {
   }
 
   return (
-    <div className="container max-w-6xl mx-auto mt-10">
+    <div className="container max-w-8xl mx-auto mt-10">
       <div className="p-6 bg-white rounded-xl shadow-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold text-gray-800">Routes</h2>
@@ -72,24 +72,24 @@ const RouteIndex = () => {
             <tbody className="bg-white divide-y divide-gray-200">
               {Route.map((route,index) => (
                 <tr key={route.id}>
-                     <td className="px-6 py-4 text-sm text-gray-800">{index+1}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{route.From_city}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{route.To_city}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                     <td className="px-6 py-4 text-2xl  text-gray-800">{index+1}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-800">{route.From_city}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-800">{route.To_city}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-500">
                     {new Date(route.created_at).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
                     })}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-2xl  text-gray-500">
                     {new Date(route.updated_at).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
                     })}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-700 flex gap-3">
+                  <td className="px-6 py-4 text-2xl  text-gray-700 flex gap-3">
                                  <Link
                                   to={`/Dashboard/RouteCreate/${route.id}`} onClick={() => handleEdit(route.id)} className="text-blue-600 hover:text-blue-800 transition cursor:pointer" title="Edit">
                                    <Pencil size={18} />

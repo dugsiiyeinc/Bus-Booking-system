@@ -2,45 +2,54 @@ import React from 'react'
 
 const simpletable = () => {
   return (
-    <div>
-      
-      <div className='container max-w-6xl mx-auto mt-10'>
-     <div className="p-6 bg-white rounded-xl shadow-md">
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-2xl font-semibold text-gray-800">Buses</h2>
-      <a
-        href="/buses/new"
-        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition"
-      >
-        Add New
-      </a>
-    </div>
-  
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200 border rounded-lg overflow-hidden">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Name</th>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Plate Number</th>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Total Seats</th>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Created At</th>
-          </tr>
+    <div class="overflow-x-auto rounded-lg border">
+    <table class="w-full">
+        <thead>
+            <tr class="bg-slate-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
+               
+                <x-th>Bus</x-th>
+                <x-th>plate_number</x-th>
+               
+                <x-th>Role</x-th>
+                <x-th>Change Role </x-th>
+                <x-th> Delete</x-th>
+            </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {/* Example static row – replace with dynamic map() in React */}
-          <tr>
-            <td className="px-6 py-4 text-sm text-gray-800">Luxury Express</td>
-            <td className="px-6 py-4 text-sm text-gray-800">SOM-12345</td>
-            <td className="px-6 py-4 text-sm text-gray-800">45</td>
-            <td className="px-6 py-4 text-sm text-gray-500">Apr 21, 2025</td>
-          </tr>
-          {/* Add more rows here */}
-        </tbody>
-      </table>
+                {buses.map((bus, index) => (
+                  <tr key={bus.id}>
+                    <td className="px-6 py-4 text-xs sm:text-sm text-gray-800">{index + 1}</td>
+                    <td className="px-6 py-4 text-sm sm:text-base text-gray-800">{bus.name}</td>
+                    <td className="px-6 py-4 text-sm sm:text-base text-gray-800">{bus.plate_number}</td>
+                    <td className="px-6 py-4 text-sm sm:text-base text-gray-800">{bus.TotalSeats}</td>
+                    <td className="px-6 py-4 text-xs sm:text-sm text-gray-500">{new Date(bus.created_at).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 text-xs sm:text-sm text-gray-500">{new Date(bus.updated_at).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 text-sm text-gray-700 flex gap-3">
+                      <Link
+                        to={`/Dashboard/BusesCreate/${bus.id}`}
+                        onClick={() => handleEdit(bus.id)}
+                        className="text-blue-600 hover:text-blue-800 transition"
+                      >
+                        <Pencil size={18} />
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(bus.id)}
+                        className="text-red-600 hover:text-red-800 transition"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+
+    </table>
+    <div class="p-4">
+      
+        
+       
     </div>
-  </div>
-  </div>
-    </div>
+</div>
   )
 }
 

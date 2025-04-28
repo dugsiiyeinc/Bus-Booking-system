@@ -58,11 +58,11 @@ const UsersIndex = () => {
             <tbody className="bg-white divide-y divide-gray-200">
               {users.map((user,index) => (
                 <tr key={user.id}>
-                  <td className="px-6 py-4 text-sm text-gray-800">{index+1}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{user.role}</td>
-                  <td className="px-6 py-4 text-sm text-gray-800">{user.username}</td>
+                  <td className="px-6 py-4 text-2xl text-gray-800">{index+1}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-800">{user.role}</td>
+                  <td className="px-6 py-4 text-2xl  text-gray-800">{user.username}</td>
                   
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-2xl  text-gray-500">
                     {new Date(user.created_at).toLocaleDateString()}
                   </td>
 

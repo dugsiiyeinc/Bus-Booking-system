@@ -159,9 +159,9 @@ const Dashboard = () => {
             <Menu size={24} />
           </button>
           <span className="text-lg font-bold">Dashboard</span>
-          <button onClick={toggleDarkMode} className="focus:outline-none">
+          {/* <button onClick={toggleDarkMode} className="focus:outline-none">
             {darkMode ? <Sun size={24} /> : <Moon size={24} />}
-          </button>
+          </button> */}
         </header>
 
         <div className={`fixed inset-0 z-40 flex md:hidden ${sidebarOpen ? '' : 'pointer-events-none'}`}>
@@ -169,11 +169,13 @@ const Dashboard = () => {
             className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${sidebarOpen ? 'opacity-100' : 'opacity-0'}`}
             onClick={() => setSidebarOpen(false)}
           />
-          <aside
-            className={`relative flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl transform transition-transform ${
-              sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}
-          >
+        <aside
+  className={`relative flex flex-col w-64 bg-white dark:bg-gray-800 shadow-xl transform transition-transform ${
+    sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+  }`}
+  style={{ zIndex: 50 }}
+>
+
             <div className="flex items-center justify-between p-6">
               <h2 className="text-2xl font-extrabold text-blue-600 dark:text-blue-400">Admin Panel</h2>
               <button onClick={() => setSidebarOpen(false)} className="focus:outline-none">
@@ -287,9 +289,9 @@ SChedules
             <header className="hidden md:flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 shadow">
               <h1 className="text-2xl font-semibold">Dashboard</h1>
               <div className="flex items-center space-x-4">
-                <button onClick={toggleDarkMode} className="focus:outline-none">
+                {/* <button onClick={toggleDarkMode} className="focus:outline-none">
                   {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-                </button>
+                </button> */}
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition cursor:pointer"
@@ -301,7 +303,7 @@ SChedules
             </header>
 
          
-            <main className="flex-1 p-6 overflow-auto bg-gray-50 dark:bg-gray-900">
+            <main className="flex-1 p-6 overflow-x-auto bg-gray-50 dark:bg-gray-900">
             <Toaster  reverseOrder={false} />
               <Outlet />
             </main>
