@@ -21,9 +21,53 @@ const Booking = () => {
  
   const [occupiedSeats, setOccupiedSeats] = useState([]); // Track occupied seat
   const [bookingDate, setBookingDate] = useState(""); // New booking date
-  const [BookingScheduleDays, setBookingScheduleDays] = useState([]); // New booking schedule days
+  const [BookingScheduleDays, setBookingScheduleDays] = useState([]); // New booking schedule 
+  const [seatExsiting, setSeatExisting] = useState(null); // Change initial state to an empty array
 
+  useEffect(() => {
+    const fetchOccupiedSeats = async () => {
+      try {
+        const { data: existsSeats, error: errorLast } = await supabase
+          .from('Bookings')
+          .select('seat_number')
+          .eq('schedule_id', id) 
+          .in('status', ['pending', 'completed']);
+  
+        if (errorLast) {
+          console.error('Error fetching seat numbers:', errorLast);
+          toast.error("❌ Khalad dhacay marka la hubinayo seat-ka!");
+          return;
+        }
 
+        console.log("existsSeats", existsSeats); // Log the fetched data for debugging
+  
+        // Log seat numbers
+        const seatNumbers = existsSeats.map((booking) => booking.seat_number);
+         console.log("Occupied Seats:", seatNumbers)[0];
+  
+        // Check if the selected seat is already occupied
+        if (seatNumbers.includes(selectedSeat)) {
+          toast.error("🚫 Kursigaan hore ayaa loo qaatay, fadlan xulo kursi kale.");
+          return;
+        }
+  
+        console.log("seatNumbers", seatNumbers);
+  
+        // Set the existing occupied seats in state
+       // setSeatExisting(seatNumbers);  // Update state with seatNumbers
+  
+        console.log("seatExsiting", seatExsiting);  // This will log the updated value after state has been set
+  
+      } catch (error) {
+        console.error("Error fetching occupied seats:", error);
+      }
+    }
+  
+    fetchOccupiedSeats();
+  
+  }, [id,seatExsiting]);  // Added selectedSeat to ensure re-fetching when selectedSeat changes
+  
+  
   useEffect(() => {
     const fetchSchedule = async () => {
       const { data, error } = await supabase
@@ -92,20 +136,52 @@ const Booking = () => {
 
     if (isDayMatch) {
       toast.success('✅ Maalinta iyo taariikhda waa isku mid!');
-      console.log("Selected Day:", selectedDay);
-      console.log("isDayMatch:", isDayMatch);
-      console.log("Selected Date:", selectedDate);
-      console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
+      // console.log("Selected Day:", selectedDay);
+      // console.log("isDayMatch:", isDayMatch);
+      // console.log("Selected Date:", selectedDate);
+      // console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
     } else {
       toast.error('❌ Maalinta iyo taariikhda ma is waafaqaan!');
-      console.log("Selected Day:", selectedDay);
-      console.log("isDayMatch:", isDayMatch);
-      console.log("Selected Date:", selectedDate);
-      console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
+      // console.log("Selected Day:", selectedDay);
+      // console.log("isDayMatch:", isDayMatch);
+      // console.log("Selected Date:", selectedDate);
+      // console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
       return;
     }
-    
 
+  
+  
+  // STEP 1: Check if seat is already booked
+  const { data: existingBookings, error: errorLast } = await supabase
+    .from('Bookings')
+    .select('seat_number')
+    .eq('seat_number', selectedSeat)
+    .eq('schedule_id', id) 
+    .eq('booking_date', bookingDate) 
+    .in('status', ['pending', 'completed']); 
+
+  //setSeatExisting(existingBookings); // Set the existing seat
+ // console.log("existingBookings",existingBookings.seat_number)
+
+  if (errorLast) {
+    console.error('Error fetching seat numbers:', errorLast);
+    toast.error("❌ Khalad dhacay marka la hubinayo seat-ka!");
+    return;
+  }
+
+  if (existingBookings.length > 0) {
+    toast.error("🚫 Kursigaan hore ayaa loo qaatay, fadlan xulo kursi kale.");
+    return; 
+  }
+    
+  const today = new Date();
+  const selectedDates = new Date(bookingDate); // Make sure bookingDate is in proper format
+  
+  if (selectedDates < today.setHours(0, 0, 0, 0)) {
+    toast.error("🚫 Booking ma suurtagal ahan waayo taariikhdu way dhaaftay.");
+    return;
+  }
+  
 
 
     const { error } = await supabase.from("Bookings").insert({
@@ -128,6 +204,10 @@ const Booking = () => {
     }
   };
 
+
+  
+
+  
   if (!schedule) return <p className="text-center p-10">⏳ Loading...</p>;
   const isFormValid = selectedDay && phone && typePayment && validatePhone(phone);
 
@@ -139,7 +219,7 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
  // Taariikhda la dooranayo
 //const selectedDay = 'Friday'; // Maalinta la dooranayo
 
-console.log("BookingScheduleDays", BookingScheduleDays)
+//console.log("BookingScheduleDays", BookingScheduleDays)
 // Kaalay hubi in maalinta iyo taariikhda isku mid yihiin
 
 
@@ -245,7 +325,7 @@ console.log("BookingScheduleDays", BookingScheduleDays)
   >
     <option value="">Choose a seat</option>
     {seatOptions.map((seat, index) => (
-      <option key={index} value={seat}>{seat}</option>
+      <option key={index} value={seat} >{seat}</option>
     ))}
   </select>
 </div>
