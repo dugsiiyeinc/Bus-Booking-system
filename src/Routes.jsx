@@ -23,7 +23,8 @@ import Buses from "./Pages/Buses"
 import BookingIndex from "./Pages/Booking/BookingIndex";
 import BookingCreate from "./Pages/Booking/BookingCreate";
 import UnAuthentication from "./Components/UnAuthentication";
-import Signup from './Pages/SignUp';
+import SignUp from "./Pages/SignUp";
+
 
 
 const router = createBrowserRouter([
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
                 path: "/Signup",
                 element:
                 <UnAuthenticated>
-                    <Signup />
+                    <SignUp/>
                 </UnAuthenticated>
             }
         ]
