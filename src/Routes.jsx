@@ -3,7 +3,7 @@ import App from "./App";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Signin from "./Pages/Signin";
-import Signup from "./Pages/Signup";
+
 import Dashboard from "./Pages/Dashboard";
 import Booking from "./Pages/Booking";
 import NotFound from "./Components/NotFound";
@@ -23,6 +23,8 @@ import Buses from "./Pages/Buses"
 import BookingIndex from "./Pages/Booking/BookingIndex";
 import BookingCreate from "./Pages/Booking/BookingCreate";
 import UnAuthentication from "./Components/UnAuthentication";
+import Signup from './Pages/SignUp';
+
 
 const router = createBrowserRouter([
     {
