@@ -5,6 +5,15 @@ import supabase from '../Lib/supabase';
 import { useParams } from 'react-router-dom';
 import { FaBusAlt, FaMapMarkerAlt, FaClock, FaDollarSign, FaIdCard, FaPhone, FaMoneyCheckAlt } from "react-icons/fa"; // Extra icons
 import toast from 'react-hot-toast';
+import { FaChair } from "react-icons/fa";
+
+
+
+
+
+
+
+
 
 const Booking = () => {
   const { theme } = useTheme();
@@ -14,58 +23,16 @@ const Booking = () => {
   const [schedule, setSchedule] = useState(null);
   const [selectedDay, setSelectedDay] = useState("");
   const [username, setUsername] = useState("");
-  const [phone, setPhone] = useState(""); // New
-  const [typePayment, setTypePayment] = useState(""); // New
+  const [phone, setPhone] = useState("");
+  const [typePayment, setTypePayment] = useState(""); 
   const [loading, setLoading] = useState(false);
-  const [selectedSeat, setSelectedSeat] = useState(""); // New seat selection
+  const [selectedSeat, setSelectedSeat] = useState("");
  
-  const [occupiedSeats, setOccupiedSeats] = useState([]); // Track occupied seat
-  const [bookingDate, setBookingDate] = useState(""); // New booking date
-  const [BookingScheduleDays, setBookingScheduleDays] = useState([]); // New booking schedule 
-  const [seatExsiting, setSeatExisting] = useState(null); // Change initial state to an empty array
+  const [occupiedSeats, setOccupiedSeats] = useState([]); 
+  const [bookingDate, setBookingDate] = useState("");
+  const [BookingScheduleDays, setBookingScheduleDays] = useState([]); 
+  const [seatExsiting, setSeatExisting] = useState(null); 
 
-  useEffect(() => {
-    const fetchOccupiedSeats = async () => {
-      try {
-        const { data: existsSeats, error: errorLast } = await supabase
-          .from('Bookings')
-          .select('seat_number')
-          .eq('schedule_id', id) 
-          .in('status', ['pending', 'completed']);
-  
-        if (errorLast) {
-          console.error('Error fetching seat numbers:', errorLast);
-          toast.error("❌ Khalad dhacay marka la hubinayo seat-ka!");
-          return;
-        }
-
-        console.log("existsSeats", existsSeats); // Log the fetched data for debugging
-  
-        // Log seat numbers
-        const seatNumbers = existsSeats.map((booking) => booking.seat_number);
-         console.log("Occupied Seats:", seatNumbers)[0];
-  
-        // Check if the selected seat is already occupied
-        if (seatNumbers.includes(selectedSeat)) {
-          toast.error("🚫 Kursigaan hore ayaa loo qaatay, fadlan xulo kursi kale.");
-          return;
-        }
-  
-        console.log("seatNumbers", seatNumbers);
-  
-        // Set the existing occupied seats in state
-       // setSeatExisting(seatNumbers);  // Update state with seatNumbers
-  
-        console.log("seatExsiting", seatExsiting);  // This will log the updated value after state has been set
-  
-      } catch (error) {
-        console.error("Error fetching occupied seats:", error);
-      }
-    }
-  
-    fetchOccupiedSeats();
-  
-  }, [id,seatExsiting]);  // Added selectedSeat to ensure re-fetching when selectedSeat changes
   
   
   useEffect(() => {
@@ -214,17 +181,9 @@ const Booking = () => {
 // Generate seat options based on the total available seats
 const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index) => index + 1);
 
-// Tusaale ahaan, dooro maalinta iyo taariikhda
-//const selectedDate = new Date(); // Taariikhda la dooranayo
- // Taariikhda la dooranayo
-//const selectedDay = 'Friday'; // Maalinta la dooranayo
-
-//console.log("BookingScheduleDays", BookingScheduleDays)
-// Kaalay hubi in maalinta iyo taariikhda isku mid yihiin
 
 
 
-//const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index) => index + 1);
 
   return (
     <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 transition duration-300 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-gray-50 to-blue-100 text-gray-900'}`}>
@@ -243,9 +202,10 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
             <FaBusAlt className="text-blue-500 text-lg" />
             <p><strong>Bus:</strong> {schedule.Buses.name}</p>
           </div>
-          <div>
-            <p className="text-sm text-gray-500"><strong>Available Seats:</strong> {schedule.Buses.TotalSeats}</p>
-          </div>
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <FaChair className="text-blue-500" />
+  <p><strong>Available Seats:</strong> {schedule.Buses.TotalSeats}</p>
+</div>
           <div className="flex items-center gap-3">
             <FaIdCard className="text-indigo-500 text-lg" />
             <p><strong>Plate Number:</strong> {schedule.Buses.plate_number}</p>
@@ -318,16 +278,27 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
 <div className="flex items-center gap-3">
   <label htmlFor="seat-select"><strong>Select Seat:</strong></label>
   <select
-    id="seat-select"
-    value={selectedSeat}
-    onChange={(e) => setSelectedSeat(e.target.value)}
-    className="p-2 rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
-  >
-    <option value="">Choose a seat</option>
-    {seatOptions.map((seat, index) => (
-      <option key={index} value={seat} >{seat}</option>
-    ))}
-  </select>
+  id="seat-select"
+  value={selectedSeat}
+  onChange={(e) => setSelectedSeat(e.target.value)}
+  className="p-2 rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
+>
+  <option value="">Choose a seat</option>
+  {seatOptions.map((seat, index) => (
+    <option
+      key={index}
+      value={seat}
+      style={{
+        backgroundColor: seat === selectedSeat ? '#4ade80' : 'white', // green for selected
+        color: seat === selectedSeat ? 'white' : 'black',
+        fontWeight: seat === selectedSeat ? 'bold' : 'normal',
+      }}
+    >
+      {seat}
+    </option>
+  ))}
+</select>
+
 </div>
 
 <div className="flex items-center gap-3">
@@ -353,6 +324,9 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
         >
           {loading ? "⏳ Booking..." : "✅ Confirm Booking"}
         </button>
+
+        
+
       </div>
     </div>
   );

@@ -23,6 +23,8 @@ const BookingIndex = () => {
         day,
         status,
         Type_payment,
+        booking_date,
+          seat_number,
         created_at,
         schedule_id,
         Schedules (
@@ -58,6 +60,8 @@ const BookingIndex = () => {
       }
     }
   };
+
+  console.log("bokinggggggggggggggggg", bookings); // Log the bookings data for debugging
 
 
   return (
@@ -99,6 +103,8 @@ const BookingIndex = () => {
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Day</th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Route</th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Payment Type</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">booking_date</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Seat Number</th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Status</th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Created At</th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">Actions</th>
@@ -116,6 +122,8 @@ const BookingIndex = () => {
                         : 'N/A'}
                     </td>
                     <td className="px-6 py-4 text-2xl  text-gray-800">{booking.Type_payment}</td>
+                    <td className="px-6 py-4 text-2xl  text-gray-800">{booking.booking_date}</td>
+                    <td className="px-6 py-4 text-2xl  text-gray-800">{booking.seat_number}</td>
                     <td className="px-6 py-4 text-2xl  text-gray-800 capitalize">{booking.status}</td>
                     <td className="px-6 py-4 text-2xl  text-gray-500">
                       {new Date(booking.created_at).toLocaleDateString('en-US', {
