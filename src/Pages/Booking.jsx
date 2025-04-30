@@ -3,9 +3,9 @@ import { useTheme } from '../Context/ThemeContext';
 import { useAuth } from '../Context/AuthContext';
 import supabase from '../Lib/supabase';
 import { useParams } from 'react-router-dom';
-import { FaBusAlt, FaMapMarkerAlt, FaClock, FaDollarSign, FaIdCard, FaPhone, FaMoneyCheckAlt } from "react-icons/fa"; // Extra icons
+import { FaBusAlt, FaMapMarkerAlt, FaClock, FaDollarSign, FaIdCard, FaPhone, FaMoneyCheckAlt,FaChair } from "react-icons/fa"; // Extra icons
 import toast from 'react-hot-toast';
-import { FaChair } from "react-icons/fa";
+
 
 
 
