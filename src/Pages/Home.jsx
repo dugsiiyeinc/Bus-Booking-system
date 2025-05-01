@@ -137,8 +137,8 @@ const Home = () => {
           className="w-12 h-12 rounded-full mr-4"
         />
         <div>
-          <p className="font-semibold">John Doe</p>
-          <p className="text-sm text-gray-500">Business Traveler</p>
+          <p className="font-semibold">Abdale Axmed</p>
+          <p className="text-sm text-gray-500">FrontEnd Developer</p>
         </div>
       </div>
     </div>
@@ -158,7 +158,7 @@ const Home = () => {
           className="w-12 h-12 rounded-full mr-4"
         />
         <div>
-          <p className="font-semibold">Sarah Miller</p>
+          <p className="font-semibold">Maxmed jama</p>
           <p className="text-sm text-gray-500">Frequent Traveler</p>
         </div>
       </div>
@@ -176,7 +176,7 @@ const Home = () => {
           className="w-12 h-12 rounded-full mr-4"
         />
         <div>
-          <p className="font-semibold">Michael Brown</p>
+          <p className="font-semibold">Xaliimo Maxamed</p>
           <p className="text-sm text-gray-500">Solo Traveler</p>
         </div>
       </div>
