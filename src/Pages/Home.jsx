@@ -137,7 +137,7 @@ const Home = () => {
           className="w-12 h-12 rounded-full mr-4"
         />
         <div>
-          <p className="font-semibold">Abdale Gurey</p>
+          <p className="font-semibold">Abdale Gurey Guled</p>
           <p className="text-sm text-gray-500">FrontEnd Developer</p>
         </div>
       </div>
