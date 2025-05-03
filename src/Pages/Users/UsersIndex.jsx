@@ -8,15 +8,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 const UsersIndex = () => {
   const [users, setUsers] = useState([]);
 
-  // Fetch users data from Supabase
+
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
     const { data, error } = await supabase
-      .from('users') // Assuming the table is called 'users'
-      .select('role,id, username, created_at') // Adjust the fields as necessary
+      .from('users') 
+      .select('role,id, username, created_at') 
       .order('created_at', { ascending: false });
 
     if (error) {

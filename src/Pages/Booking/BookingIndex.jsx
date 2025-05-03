@@ -35,7 +35,7 @@ const BookingIndex = () => {
             To_city
           )
         )
-      `); // nested join Schedules → Routes
+      `).order('created_at', { ascending: false }); 
 
     if (error) {
       console.error('Error fetching bookings:', error.message);

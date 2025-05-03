@@ -25,10 +25,10 @@ const BusIndex = () => {
 
   console.log("buses", buses)
 
-  // Handle Edit Action
+
   const handleEdit = (busId) => {
     console.log('Editing bus with ID:', busId)
-    // Redirect or show modal for editing
+
   }
 
   // Handle Delete Action
@@ -37,14 +37,14 @@ const BusIndex = () => {
     if (error) {
       console.error('Error deleting bus:', error)
       toast.error(` Error deleting bus${error}`, {
-        position: "top-right", // ama "top-right", "bottom-left", iwm
+        position: "top-right", 
 
 
       })
     } else {
-      // Refresh buses after delete
+   
       toast.success("Bus deleted successfully!", {
-        position: "top-right", // ama "top-right", "bottom-left", iwm
+        position: "top-right", 
 
 
       })
