@@ -7,7 +7,7 @@ import { FaBusAlt, FaMapMarkerAlt, FaClock, FaDollarSign, FaIdCard, FaPhone, FaM
 import toast from 'react-hot-toast';
 
 
-
+import { FaChevronDown } from 'react-icons/fa';
 
 
 
@@ -32,6 +32,9 @@ const Booking = () => {
   const [bookingDate, setBookingDate] = useState("");
   const [BookingScheduleDays, setBookingScheduleDays] = useState([]); 
   const [seatExsiting, setSeatExisting] = useState(null); 
+  const [showSeatInfo, setShowSeatInfo] = useState(null); // seat number or null
+  const [showSeatTable, setShowSeatTable] = useState(false);
+
 
   
 
@@ -272,7 +275,7 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
             <p><strong>Price:</strong> ${schedule.price}</p>
           </div>
 
-          {/* Select Day */}
+      
           <div className="flex items-center gap-3">
             <label htmlFor="day-select"><strong>Select Day:</strong></label>
             <select
@@ -288,7 +291,7 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
             </select>
           </div>
 
-          {/* Phone Input */}
+     
           <div className="flex items-center gap-3">
             <FaPhone className="text-purple-500 text-lg" />
             <input
@@ -302,8 +305,7 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
 
          
 
-          {/* Type of Payment Input */}
-          {/* Type of Payment Select */}
+        
 <div className="flex items-center gap-3">
   <FaMoneyCheckAlt className="text-green-700 text-lg" />
   <select
@@ -329,29 +331,48 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
     className="p-2 w-full rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
   />
 </div>
+<button
+  onClick={() => setShowSeatTable(!showSeatTable)}
+  className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 flex items-center justify-center"
+>
+  <FaChevronDown className="h-5 w-5 mr-2" />
+  Dooro Kursi
+</button>
 
- {/* Seat Selection */}
- <div className="grid grid-cols-4 gap-4 mt-4">
-  {Array.from({ length: schedule.Buses.TotalSeats }, (_, i) => {
-    const seatNum = i + 1;
-    const isOccupied = occupiedSeats.includes(seatNum.toString());
+ {showSeatTable && (
+  <div className="grid grid-cols-4 gap-2 mt-4">
+    {Array.from({ length: schedule.Buses.TotalSeats }, (_, i) => {
+      const seatNum = i + 1;
+      const seatStr = seatNum.toString();
+      const isOccupied = occupiedSeats.includes(seatStr);
+      const isSelected = selectedSeat === seatStr;
 
-    return (
-      <div
-        key={seatNum}
-        className={`p-4 text-center border rounded cursor-pointer 
-          ${isOccupied ? 'bg-red-400 cursor-not-allowed' : 'bg-green-400 hover:bg-green-600'}
-          ${selectedSeat === seatNum.toString() ? 'ring-4 ring-blue-500' : ''}`
-        }
-        onClick={() => {
-          if (!isOccupied) setSelectedSeat(seatNum.toString());
-        }}
-      >
-        {seatNum}
-      </div>
-    );
-  })}
-</div>
+      return (
+        <div
+          key={seatNum}
+          className={`relative h-10 w-10 flex items-center px-15 justify-center text-sm font-bold border rounded cursor-pointer transition
+            ${isOccupied ? 'bg-red-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'}
+            ${isSelected ? 'ring-2 ring-blue-400' : ''}`}
+          onClick={() => {
+            if (!isOccupied) {
+              setSelectedSeat(seatStr === selectedSeat ? null : seatStr);
+            }
+          }}
+        >
+          {seatNum}
+
+     
+          {isSelected && (
+            <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-white shadow-md px-2 py-1 rounded text-xs">
+              ✅ Kursi la doortay
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+)}
+
 
 
 
