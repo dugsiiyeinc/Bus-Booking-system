@@ -34,6 +34,45 @@ const Booking = () => {
   const [seatExsiting, setSeatExisting] = useState(null); 
 
   
+
+// Added selectedSeat to ensure re-fetching when selectedSeat changes
+useEffect(() => {
+  const fetchSeatsForDate = async () => {
+    if (!bookingDate || !id) return;
+
+    try {
+      setLoading(true);
+
+      const { data: bookedSeats, error } = await supabase
+        .from('Bookings')
+        .select('seat_number')
+        .eq('schedule_id', id)
+        .eq('booking_date', bookingDate)
+        .in('status', ['pending', 'completed']);
+
+      if (error) {
+        console.error('Error fetching booked seats:', error);
+        toast.error("❌ Khalad ayaa dhacay marka la eegayo kursiyada la qaatay.");
+        return;
+      }
+
+      const seatNumbers = bookedSeats.map((b) => b.seat_number);
+      setOccupiedSeats(seatNumbers);  // Update state
+
+      console.log("Occupied seats:", occupiedSeats);
+
+      console.log("💺 Kursiyada la qaatay:", seatNumbers);
+    } catch (err) {
+      console.error("Unexpected error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchSeatsForDate();
+}, [bookingDate, id]);
+
+  
   
   useEffect(() => {
     const fetchSchedule = async () => {
@@ -96,6 +135,7 @@ const Booking = () => {
     };
 
     const selectionBookDay = selectedDay.charAt(0).toUpperCase() + selectedDay.slice(1).toLowerCase();
+   // const selectionBookDay = selectedDay;
 
     
     const isDayMatch = getDayOfWeek(selectedDate) == selectionBookDay;
@@ -103,16 +143,16 @@ const Booking = () => {
 
     if (isDayMatch) {
       toast.success('✅ Maalinta iyo taariikhda waa isku mid!');
-      // console.log("Selected Day:", selectedDay);
-      // console.log("isDayMatch:", isDayMatch);
-      // console.log("Selected Date:", selectedDate);
-      // console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
+      console.log("Selected Day:", selectedDay);
+      console.log("isDayMatch:", isDayMatch);
+      console.log("Selected Date:", selectedDate);
+      console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
     } else {
       toast.error('❌ Maalinta iyo taariikhda ma is waafaqaan!');
-      // console.log("Selected Day:", selectedDay);
-      // console.log("isDayMatch:", isDayMatch);
-      // console.log("Selected Date:", selectedDate);
-      // console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
+      console.log("Selected Day:", selectedDay);
+      console.log("isDayMatch:", isDayMatch);
+      console.log("Selected Date:", selectedDate);
+      console.log("getDayOfWeek(selectedDate):", getDayOfWeek(selectedDate));
       return;
     }
 
@@ -146,6 +186,11 @@ const Booking = () => {
   
   if (selectedDates < today.setHours(0, 0, 0, 0)) {
     toast.error("🚫 Booking ma suurtagal ahan waayo taariikhdu way dhaaftay.");
+    return;
+  }
+
+  if (!selectedSeat) {
+    toast.error("🚫 Fadlan dooro kursi ka hor intaadan sii wadin.");
     return;
   }
   
@@ -273,34 +318,6 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
   </select>
 </div>
  
-
- {/* Seat Selection */}
-<div className="flex items-center gap-3">
-  <label htmlFor="seat-select"><strong>Select Seat:</strong></label>
-  <select
-  id="seat-select"
-  value={selectedSeat}
-  onChange={(e) => setSelectedSeat(e.target.value)}
-  className="p-2 rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
->
-  <option value="">Choose a seat</option>
-  {seatOptions.map((seat, index) => (
-    <option
-      key={index}
-      value={seat}
-      style={{
-        backgroundColor: seat === selectedSeat ? '#4ade80' : 'white', // green for selected
-        color: seat === selectedSeat ? 'white' : 'black',
-        fontWeight: seat === selectedSeat ? 'bold' : 'normal',
-      }}
-    >
-      {seat}
-    </option>
-  ))}
-</select>
-
-</div>
-
 <div className="flex items-center gap-3">
   <label htmlFor="date-select"><strong>Select Date:</strong></label>
   <input
@@ -309,9 +326,34 @@ const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index)
     value={bookingDate}
     onChange={(e) => setBookingDate(e.target.value)}
 
-    className="p-2 rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
+    className="p-2 w-full rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
   />
 </div>
+
+ {/* Seat Selection */}
+ <div className="grid grid-cols-4 gap-4 mt-4">
+  {Array.from({ length: schedule.Buses.TotalSeats }, (_, i) => {
+    const seatNum = i + 1;
+    const isOccupied = occupiedSeats.includes(seatNum.toString());
+
+    return (
+      <div
+        key={seatNum}
+        className={`p-4 text-center border rounded cursor-pointer 
+          ${isOccupied ? 'bg-red-400 cursor-not-allowed' : 'bg-green-400 hover:bg-green-600'}
+          ${selectedSeat === seatNum.toString() ? 'ring-4 ring-blue-500' : ''}`
+        }
+        onClick={() => {
+          if (!isOccupied) setSelectedSeat(seatNum.toString());
+        }}
+      >
+        {seatNum}
+      </div>
+    );
+  })}
+</div>
+
+
 
 
 
