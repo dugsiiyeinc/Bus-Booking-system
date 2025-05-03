@@ -49,7 +49,12 @@ const router = createBrowserRouter([
             },
             {
                 path:"/UnAuthenticated",
-                element:<UnAuthentication/>
+                element:
+                <ProtectedRoute>
+                         <UnAuthentication/>
+                </ProtectedRoute>
+                
+           
             },
             {
                 path:"Buses",
