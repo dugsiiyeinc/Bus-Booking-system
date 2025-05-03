@@ -122,7 +122,7 @@ useEffect(() => {
       return;
     }
 
-    if (!selectedDay || !phone || !typePayment) {
+    if (!selectedDay || !phone || !typePayment || !bookingDate || !selectedSeat) {
       toast.error("Fadlan dhammee foomka booking-ga.");
       return;
     }
@@ -224,7 +224,7 @@ useEffect(() => {
 
   
   if (!schedule) return <p className="text-center p-10">⏳ Loading...</p>;
-  const isFormValid = selectedDay && phone && typePayment && validatePhone(phone);
+  const isFormValid = selectedDay && phone && typePayment && validatePhone(phone) && bookingDate && selectedSeat; // Check if all fields are valid
 
 // Generate seat options based on the total available seats
 const seatOptions = Array.from({ length: schedule.Buses.TotalSeats }, (_, index) => index + 1);
