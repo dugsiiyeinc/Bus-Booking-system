@@ -27,6 +27,19 @@ const UsersIndex = () => {
   };
 
   const handleDelete= async(id)=>{
+    const { error } = await supabase
+    .from('users')
+    .delete()
+    .eq('id', id);
+    if (error) {
+      console.error('Error deleting user:', error);
+      toast.error('Error deleting user');
+    } else {
+      toast.success('User deleted successfully');
+      fetchUsers(); // Refresh the user list after deletion
+    }
+
+    
 
   }
 
