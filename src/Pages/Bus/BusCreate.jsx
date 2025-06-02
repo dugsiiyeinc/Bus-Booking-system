@@ -107,7 +107,28 @@ const handleSubmit = async (e) => {
       isValid = false;
     }
 
-  
+    const { data, error } = await supabase
+  .from('Buses')
+  .select('id')
+  .eq('plate_number', plateNumber) // Halkan sax plate_number
+  .single();
+
+if (data) {
+  setPlateNumberError('Taarikadaan hore ayaa loo isticmaalay, fadlan dooro mid kale');
+  isValid = false;
+}
+
+
+// const { data:DataName, error:ErrorName } = await supabase
+//   .from('Buses')
+//   .select('id')
+//   .eq('name', name)
+//   .maybeSingle();
+
+// if (DataName) {
+//   setNameError('Magacan baska hore ayaa loo isticmaalay');
+//   isValid = false;
+// }
 
 
 
