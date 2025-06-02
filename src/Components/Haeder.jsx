@@ -149,7 +149,7 @@ const Header = () => {
         theme === 'dark' ? 'text-blue-400 hover:text-blue-600' : 'text-gray-700 hover:text-blue-600'
       }`}
     >
-      Dashboard {userRole}
+      Dashboard 
     </button>
   )
 }

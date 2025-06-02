@@ -11,6 +11,8 @@ import { Route } from 'lucide-react';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { FaTicketAlt } from "react-icons/fa"; // icon cusub
 import supabase from '../Lib/supabase';
+import { FiLogOut } from 'react-icons/fi';
+
 
 function ScheduleButton() {
   return (
@@ -260,19 +262,17 @@ SChedules
 </NavLink>
 
 
-  <NavLink
-    to="/Dashboard/Users"
-    className={({ isActive }) =>
-      `flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium ${
-        isActive
-          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 shadow-inner'
-          : 'hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700'
-      }`
-    }
-  >
-    <Users size={20} />
-    Users
-  </NavLink>
+  <button
+  onClick={handleLogout}
+  className="flex items-center gap-3 px-4 py-2 rounded-lg transition font-medium 
+             text-red-700 hover:bg-red-50 hover:text-red-800 
+             dark:hover:bg-gray-800 dark:text-red-400 dark:hover:text-red-300"
+>
+<FiLogOut size={20} className="text-red-600 dark:text-red-400" />
+
+  <span>Logout</span>
+</button>
+
 </nav>
 
           </aside>
