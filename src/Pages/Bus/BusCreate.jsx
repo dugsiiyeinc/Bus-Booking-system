@@ -106,7 +106,14 @@ const handleSubmit = async (e) => {
       setTotalSeatsError('Total seats must be a number and greater than 0');
       isValid = false;
     }
+
   
+
+
+
+
+
+
     // // Check if plate_number is unique
     if (isValid) {
     //  const isPlateNumberExists = await checkIfPlateNumberExists(plateNumber);
@@ -118,6 +125,9 @@ const handleSubmit = async (e) => {
     //     });
     //     return;  // Prevent form submission if plate_number exists
     //   }
+
+
+
   
       let BusData = {
         name: name,
@@ -138,11 +148,23 @@ const handleSubmit = async (e) => {
         navigate('/Dashboard/BusesIndex');
       } else {
         // Insert new bus
-        SavedBus = await createBus(BusData);
+
+
+
+ 
+       SavedBus = await createBus(BusData);
         toast.success('Bus created successfully!', {
           position: 'top-right',
         });
         navigate('/Dashboard/BusesIndex');
+
+    
+
+
+
+
+
+       
       }
   
       console.log('Saved Bus:', SavedBus);

@@ -16,6 +16,8 @@ const Header = () => {
   const id = profile?.session?.user?.id;
   const [userRole, setUserRole] = useState(null); // Role state
 
+  console.log("userRoleeee", userRole);
+
   useEffect(() => {
     const FetchUserRole = async () => {
       if (!id) return;
@@ -75,12 +77,18 @@ const Header = () => {
                 Welcome, {profile?.name}
               </span>
 
-              <button
+             {
+                userRole === 'admin' && (
+                  <>
+                   <button
                 onClick={handleDashboardClick}
                 className={`px-4 py-2 cursor-pointer rounded-full ${theme === 'dark' ? 'border-blue-400 text-blue-400 hover:bg-blue-600' : 'border-blue-600 text-blue-600 hover:bg-blue-100'} transition duration-200`}
               >
                 Dashboard
               </button>
+                  </>
+                )
+             }
 
               <button
                 onClick={logout}
@@ -132,7 +140,26 @@ const Header = () => {
           <hr />
           {IsLoggedIn ? (
             <div className="flex flex-col space-y-2">
-              <button onClick={handleDashboardClick} className={`block ${theme === 'dark' ? 'text-blue-400' : 'text-gray-700'} hover:${theme === 'dark' ? 'text-blue-600' : 'text-blue-600'}`}>Dashboard</button>
+
+{
+  userRole === 'admin' && (
+    <button
+      onClick={handleDashboardClick}
+      className={`block ${
+        theme === 'dark' ? 'text-blue-400 hover:text-blue-600' : 'text-gray-700 hover:text-blue-600'
+      }`}
+    >
+      Dashboard {userRole}
+    </button>
+  )
+}
+
+
+           
+
+
+
+
               <button onClick={logout} className={`block ${theme === 'dark' ? 'text-red-500' : 'text-red-500'} hover:${theme === 'dark' ? 'text-red-600' : 'text-red-600'}`}>Logout</button>
             </div>
           ) : (

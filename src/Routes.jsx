@@ -17,13 +17,15 @@ import RouteIndex from "./Pages/Route/RouteIndex"
 import RouteCreate from "./Pages/Route/RouteCreate"
 import ScheduleIndex from "./Pages/Schedules/ScheduleIndex";
 import ScheduleCreate from "./Pages/Schedules/ScheduleCreate";
-import UsersIndex from "./Pages/Users/UsersIndex"
-import UsersCreate from "./Pages/Users/UsersCreate"
-import Buses from "./Pages/Buses"
+import UsersIndex from "./Pages/Users/UsersIndex";
+import AdminRoute from "./Components/AdminRoute";
+import UsersCreate from "./Pages/Users/UsersCreate";
+import Buses from "./Pages/Buses";
 import BookingIndex from "./Pages/Booking/BookingIndex";
 import BookingCreate from "./Pages/Booking/BookingCreate";
 import UnAuthentication from "./Components/UnAuthentication";
 import SignUp from "./Pages/SignUp";
+
 
 
 
@@ -84,7 +86,7 @@ const router = createBrowserRouter([
     {
         path: "/Dashboard",
         element:
-        <ProtectedRoute>
+        <ProtectedRoute requireAdmin={true}>
             {/* <DashboardHeader /> */}
             <Dashboard />  
         </ProtectedRoute>,
